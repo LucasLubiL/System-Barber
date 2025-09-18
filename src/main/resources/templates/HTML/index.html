@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <title>Home</title>
+</head>
+
+<body>
+    <header id="header">
+        <div class="logo">
+            <img src="/img/logoBarbearia.png" alt="Logo da Barbearia">
+        </div>
+        <nav class="navbar">
+            <div>
+                <ul class="nav">
+                    <li><a href="#"><i class="bi bi-house-fill"></i> Home</a></li>
+                    <li><a href="#"><i class="bi bi-calendar-check-fill"></i> Agendamento</a></li>
+                    <li><a href="#servico"><i class="bi bi-scissors"></i> Serviços</a></li>
+                    <li><a href="#sobre-doar"><i class="bi bi-heart-fill"></i> Doação</a></li>
+                    <li><a href="#sobre-cabelo"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
+                </ul>
+            </div>
+        </nav>
+        <a href="agendamento.html" class="btn-login-header">
+            <i class="bi bi-person" style="font-size: 1.2rem;"></i>
+            Login
+        </a>
+        <i class="bi bi-list" id="menu-toggle"></i>
+    </header>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div id="banner-pai">
+                    <img class="foto-barber" src="/img/barbeiro-removebg-preview.png" alt="Barbeiro">
+                    <div class="banner-filho">
+                        <h1><strong>Estilo que <strong style="color: #7c6a6a;">Transforma</strong></strong></h1>
+                        <h1><strong><strong style="color: #7c6a6a;">Visual</strong> que se destaca</strong></h1>
+                        <span>Na Barbearia do Jean, cada corte é uma obra de arte, feita com cuidado, estilo e
+                            autenticidade.</span>
+                        <div>
+                            <a class="btn-agendar-banner" style="color: white;" href="agendamento.html">
+                                <i class="bi bi-calendar-check-fill"></i> Agendar Horário
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="carousel-item">
+                <div id="banner-pai">
+                    <div class="banner-filho">
+                        <h1><strong>Tradição e um <strong style="color: #7c6a6a;">Corte </strong>que
+                                muda</strong><strong style="color: #7c6a6a;"> Vidas.</strong></h1>
+                        <span>Você é um Doador ou uma Instituição que necessita de fios para alegrar o dia de
+                            alguém?</span>
+                        <span style="margin-top: 10px;">Clique em <strong style="color: #7c6a6a;">"Saiba Mais"</strong>
+                            e veja os detalhes!</span>
+                        <div>
+                            <a class="btn-saiba-banner" style="color: white;" href="agendamento.html">
+                                <i class="bi bi-info-square-fill"></i> Saiba Mais
+                            </a>
+                        </div>
+                    </div>
+                    <img class="foto-barber" src="/img/barbeiro-cabelo.png" alt="Logo">
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div id="sobre-cabelo" class="divider"></div>
+
+    <div id="sobre">
+        <div class="sobre-filho">
+            <div class="sobre-img">
+                <h1><strong>Mais Sobre <strong style="color: #7b5a5a">Nós</strong></strong></h1>
+
+                <p>Conheça um pouco mais da nossa história e da nossa equipe!</p>
+                <img src="/img/cortando2.png">
+            </div>
+
+            <div class="sobre-info">
+                <h2 style="color: #7c6a6a"><i class="bi bi-building-fill"></i><strong> Nossa História</strong></h2>
+                <p>A Barbearia do Jean nasceu da paixão por cortes de cabelo bem feitos e pelo atendimento
+                    personalizado. Desde 2013, temos orgulho de oferecer serviços de qualidade em um ambiente acolhedor
+                    e descontraído.</p>
+                <p>Nossa missão vai além de simplesmente cortar cabelo - queremos que cada cliente saia daqui não apenas
+                    com um visual renovado, mas também com a autoestima elevada e a sensação de ter sido bem cuidado.
+                </p>
+                <div class="sobre-cards">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <i class="bi bi-scissors"></i>
+                            <h5 class="card-title" style="color: #7c6a6a">Cortes Precisos</h5>
+
+                            <p class="card-text">Técnicas atualizadas para o melhor resultado, deixando você com a
+                                autoestima elevada do jeitinho que você merece</p>
+
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <i class="bi bi-people-fill"></i>
+                            <h5 class="card-title" style="color: #7c6a6a">Atendimento Personalizado</h5>
+
+                            <p class="card-text">Mais do que estética, oferecemos cuidado. Cada corte, cada conversa,
+                                cada detalhe pensado para que você se sinta valorizado</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sobre-doar" class="divider"></div>
+
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 100px;">
+        <h1><strong>Junte-se ao nosso <span style="color: #7c6a6a;">Programa de Doações</span></strong></h1>
+    </div>
+
+    <section style="background-color: #101010;">
+        <div id="doar-cabelo" style>
+            <div class="doador">
+                <div class="doar-cabelo-filho">
+                    <br>
+                    <h2><strong>Doe o <strong style="color: #7c6a6a;">seu Cabelo!</strong> </strong></h2>
+                    <p>Participe do nosso programa de doação de cabelo e ajude pessoas que passam<br> por tratamento
+                        médico.
+                        Ao doar
+                        seus cabelos, você recebe um corte gratuito<br> com nossos especialistas.</p>
+                    <ul style="list-style: none; padding:0;">
+                        <li><i class="bi bi-check-circle-fill"></i> Corte gratuito após a doação</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Certificado de doador solidário</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Contribuição para uma causa nobre</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Profissionais especializados</li>
+                    </ul>
+                    <div>
+                        <a class="btn-doar-cabelo" style="width: 280px; color: white; padding: 13px; margin-top: 30px;"
+                            href="agendamento.html">
+                            <i class="bi bi-calendar-heart"></i> Quero Doar Meu Cabelo
+                        </a>
+                    </div>
+                </div>
+                <div class="quadro-doar-cabelo">
+                    <h3 style="color: #7c6a6a;"><i class="bi bi-info-circle-fill"></i><strong> Requisitos para
+                            Doação</strong></h3>
+                    <p>Para garantir que seu cabelo possa ser utilizado, é<br> importante seguir alguns requisitos:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <span style="color: #7c6a6a;"><i class="bi bi-rulers"></i><strong> Comprimento</strong></span>
+                        <li style="margin-top: 10px;"><i class="bi bi-check-lg"></i> Mínimo de 15 centímetros</li>
+                        <li><i class="bi bi-check-lg"></i> Quanto maior, melhor o aproveitamento</li>
+                    </ul>
+                    <ul style="list-style: none; padding: 0;">
+                        <span style="color: #7c6a6a;"><i class="bi bi-arrow-up-right"></i><strong>
+                                Condições</strong></span>
+                        <li style="margin-top: 10px;"><i class="bi bi-check-lg"></i> Cabelo limpo e seco</li>
+                        <li><i class="bi bi-check-lg"></i> Preferencialmente sem química recente</li>
+                        <li><i class="bi bi-check-lg"></i> Pode estar tingido, desde que sem danos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider" style="margin-top: 30px;"></div>
+
+        <div id="receber-cabelo">
+            <div class="recebedor">
+                <div class="receber-cabelo-filho">
+                    <h2><strong>Você é uma <span style="color: #7c6a6a;">Instituição</span> e quer receber <span
+                                style="color: #7c6a6a;">os Cabelos?</span></strong></h2>
+                    <p>Cadastre-se para receber as doações de cabelo e ajude a transformar a autoestima de quem mais
+                        precisa. <br>Clique no botão em se <strong style="color: #7c6a6a;">"Inscrever"</strong> para
+                        ficar
+                        por dentro.</p>
+                </div>
+                <div>
+                    <div class="doar-cards">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <i class="bi bi-layout-text-window"></i>
+                                <h5 class="card-title" style="color: #7c6a6a">Cadastro</h5>
+
+                                <p class="card-text">Preencha nosso formulário com informações da sua instituição</p>
+
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <i class="bi bi-check-circle-fill"></i>
+                                <h5 class="card-title" style="color: #7c6a6a">Análise</h5>
+
+                                <p class="card-text">Nossa equipe avalia o cadastro para ver se é compatível.</p>
+
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <i class="bi bi-person-raised-hand"></i>
+                                <h5 class="card-title" style="color: #7c6a6a">Parceria</h5>
+
+                                <p class="card-text">Firmamos a parceria e combinamos os detalhes logísticos</p>
+
+                            </div>
+                        </div>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <i class="bi bi-truck"></i>
+                                <h5 class="card-title" style="color: #7c6a6a">Recebimento</h5>
+
+                                <p class="card-text">Você começa a receber as doações de cabelo regularmente</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;display: flex;justify-content: center; align-items: center;">
+                    <a class="btn-inscrever-cabelo" style="width: 200px; color: white; padding: 13px; margin: 0;"
+                        href="agendamento.html">
+                        <i class="bi bi-calendar-heart"></i> Inscrever
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="divider"></div>
+
+    <div id="servico">
+        <div class="servico-pai">
+            <div class="servico-filho">
+                <h1><strong>Nossos <span style="color: #7c6a6a">Serviços!</span></strong></h1>
+                <p>Oferecemos uma gama completa de serviços masculinos com qualidade premium e preços justos!</p>
+
+                <div class="servico-item">
+                    <h4 style="color: #7c6a6a"><i class="bi bi-scissors"></i><strong> Corte de Cabelo</strong></h4>
+                    <p>Estilo personalizado que valoriza seu formato de rosto e personalidade.</p>
+                </div>
+
+                <div class="servico-item">
+                    <h4 style="color: #7c6a6a"><i class="bi bi-brush-fill"></i><strong> Barba e Bigode</strong></h4>
+                    <p>Modelagem completa para manter sua barba sempre impecável.</p>
+                </div>
+
+                <div class="servico-item">
+                    <h4 style="color: #7c6a6a"><i class="bi bi-droplet-half"></i><strong> Tratamentos</strong></h4>
+                    <p>Hidratação, reconstrução e outros tratamentos para cabelo e barba.</p>
+                </div>
+
+                <div class="servico-item">
+                    <h4 style="color: #7c6a6a"><i class="bi bi-magic"></i><strong> Pacote Completo</strong></h4>
+                    <p>Corte, barba, tratamento e finalização para uma experiência completa.</p>
+                </div>
+
+                <div class="servico-pai-btn">
+                    <a class="btn-agendar-servico" href="agendamento.html">
+                        <i class="bi bi-calendar-check-fill"></i> Agendar Horário
+                    </a>
+                </div>
+            </div>
+
+            <div class="servico-img">
+                <img src="/img/modelo.jpg" alt="Barbeiro trabalhando">
+            </div>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nossa <span style="color: #7b5a5a;">Galeria</span></h2>
+                <p class="section-desc">Confira alguns dos nossos melhores trabalhos e inspire-se com nossos cortes</p>
+            </div>
+
+            <div class="gallery-container">
+
+                <div class="gallery-row">
+
+                    <div class="gallery-item">
+                        <img src="img/1.jpg"
+                            alt="Corte" class="gallery-img">
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="img/2.jpg"
+                            alt="Corte" class="gallery-img">
+                       
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="img/3.jpg"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+                </div>
+
+                <div class="gallery-row">
+
+                    <div class="gallery-item">
+                        <img src="img/4.jpg"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="img/5.jpg"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="img/6.jpg"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+
+                    <div class="gallery-item">
+                        <img src="img/7.jpg"
+                            alt="Corte" class="gallery-img">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">O que Nossos <span style="color: #7c6a6a;">Clientes</span> Dizem?!</h2>
+                <p class="section-desc">Confira as experiências de quem já visitou nossa barbearia e faça parte desta
+                    comunidade satisfeita</p>
+            </div>
+
+            <div class="testimonials-container">
+                <div class="testimonials-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-info">
+                                <img src="/img/selfie3.png" alt="Carlos Silva" class="client-avatar">
+                                <div class="client-details">
+                                    <h3>Carlos Silva</h3>
+                                    <p>Cliente há 2 anos</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>Melhor barbearia da região! O Jean é extremamente talentoso e atencioso. Sempre saio de
+                                lá renovado e satisfeito com o resultado.</p>
+                        </div>
+                        <div class="testimonial-date">
+                            <i class="bi bi-calendar3"></i> 15 de Outubro, 2024
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-info">
+                                <img src="/img/selfie2.png" alt="Marcos Oliveira" class="client-avatar">
+                                <div class="client-details">
+                                    <h3>Marcos Oliveira</h3>
+                                    <p>Cliente há 1 ano</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>Atendimento excepcional! Fui pela primeira vez e já me senti em casa. Ambiente limpo e
+                                organizado, e o corte ficou exatamente como eu queria.</p>
+                        </div>
+                        <div class="testimonial-date">
+                            <i class="bi bi-calendar3"></i> 02 de Setembro, 2024
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <div class="client-info">
+                                <img src="/img/selfie1.png" alt="João Santos" class="client-avatar">
+                                <div class="client-details">
+                                    <h3>João Santos</h3>
+                                    <p>Cliente há 6 meses</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>Além de fazer um ótimo trabalho, o Jean ainda tem um projeto social incrível com doação
+                                de cabelo. É bom saber que estou contribuindo com uma causa nobre.</p>
+                        </div>
+                        <div class="testimonial-date">
+                            <i class="bi bi-calendar3"></i> 5 de julho, 2025
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="testimonials-cta">
+                <p>Deixe sua avaliação e compartilhe sua experiência conosco</p>
+                <a href="#avaliar" class="btn-primary-custom">
+                    <i class="bi bi-pencil-fill"></i> Deixar Avaliação
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="" class="divider"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3> Barbearia do Jean</h3>
+                <p>Transformando autoestima através de cortes de qualidade e ações solidárias.</p>
+
+                <div class="social-links">
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="bi bi-geo-alt-fill"></i> Endereço</h3>
+                <p>Rua da Barbearia, 123</p>
+                <p>Centro, Patrocínio - MG</p>
+                <p>CEP: 01234-567</p>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="bi bi-alarm"></i> Horários</h3>
+                <p>Segunda a Sexta: 8h às 19h</p>
+                <p>Sábado: 8h às 18h</p>
+                <p>Domingo: Fechado</p>
+            </div>
+
+            <div class="footer-col">
+                <h3><i class="bi bi-link-45deg"></i> Links Rápidos</h3>
+                <ul>
+                    <li><a href="#"><i class="bi bi-calendar-check-fill"></i> Agendamento Online</a></li>
+                    <li><a href="#"><i class="bi bi-heart-fill"></i> Doação de Cabelo</a></li>
+                    <li><a href="#"><i class="bi bi-scissors"></i> Serviços</a></li>
+                    <li><a href="#"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Barbearia do Jean - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const navbar = document.querySelector('.navbar');
+        const loginBtn = document.querySelector('.btn-login-header');
+
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            loginBtn.classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>
