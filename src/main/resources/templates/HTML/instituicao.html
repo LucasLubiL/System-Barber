@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/instituicao.css">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <title>Inscrição Instituição</title>
+</head>
+
+<th:block th:replace="~{/../fragments/head :: head('Inscrição Instituição')}"></th:block>
+
+<body>
+
+    <th:block th:replace="~{/../fragments/head :: header}"></th:block>
+
+
+    <!-- Como Funciona -->
+    <section class="content-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title text-center mb-5"><strong style="color: white;">Como Funciona </strong>o Processo</h2>
+
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4 class="info-label">Inscrição da Instituição</h4>
+                            <p>Preencha o formulário de inscrição com os dados completos da sua instituição. Nossa
+                                equipe analisará o cadastro para verificar a compatibilidade com nosso programa.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4 class="info-label">Análise e Aprovação</h4>
+                            <p>Nossa equipe entrará em contato para validar as informações e entender melhor como sua
+                                instituição atua. O processo de análise leva em média 5-7 dias úteis.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4 class="info-label">Formalização da Parceria</h4>
+                            <p>Após a aprovação, firmamos a parceria através de um termo de colaboração que estabelece
+                                os direitos e responsabilidades de ambas as partes.</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4 class="info-label">Recebimento das Doações</h4>
+                            <p>As doações de cabelo são enviadas regularmente para sua instituição, que poderá
+                                utilizá-las para confecção de perucas ou comercialização para custear tratamentos.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Formulário de Inscrição -->
+    <section class="content-section" id="formulario">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h2 class="section-title text-center mb-5"><strong style="color: white;">Formulário de </strong>Inscrição</h2>
+
+                    <div class="card-custom p-4 p-md-5">
+                        <form id="institutionForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="institutionName" class="form-label info-label">Nome da Instituição
+                                        *</label>
+                                    <input type="text" class="form-control form-control-custom" id="institutionName"
+                                        required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cnpj" class="form-label info-label">CNPJ *</label>
+                                    <input type="text" class="form-control form-control-custom" id="cnpj" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="responsibleName" class="form-label info-label">Nome do Responsável
+                                        *</label>
+                                    <input type="text" class="form-control form-control-custom" id="responsibleName"
+                                        required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="responsibleRole" class="form-label info-label">Cargo do Responsável
+                                        *</label>
+                                    <input type="text" class="form-control form-control-custom" id="responsibleRole"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label info-label">E-mail *</label>
+                                    <input type="email" class="form-control form-control-custom" id="email" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label info-label">Telefone *</label>
+                                    <input type="tel" class="form-control form-control-custom" id="phone" required>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label info-label">Endereço Completo *</label>
+                                <input type="text" class="form-control form-control-custom" id="address" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label info-label">Cidade *</label>
+                                    <input type="text" class="form-control form-control-custom" id="city" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="state" class="form-label info-label">Estado *</label>
+                                    <select class="form-select form-control-custom" id="state" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="institutionType" class="form-label info-label">Tipo de Instituição *</label>
+                                <select class="form-select form-control-custom" id="institutionType" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="ong">ONG</option>
+                                    <option value="hospital">Hospital</option>
+                                    <option value="associacao">Associação</option>
+                                    <option value="fundacao">Fundação</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="mission" class="form-label info-label">Missão da Instituição *</label>
+                                <textarea class="form-control form-control-custom" id="mission" rows="3"
+                                    required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="beneficiaries" class="form-label info-label">Público Beneficiado *</label>
+                                <textarea class="form-control form-control-custom" id="beneficiaries" rows="3" required
+                                    placeholder="Descreva brevemente quem são as pessoas beneficiadas pelo trabalho da instituição"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="hairUsage" class="form-label info-label">Como utilizará as doações de
+                                    cabelo? *</label>
+                                <select class="form-select form-control-custom" id="hairUsage" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="perucas">Confecção de perucas</option>
+                                    <option value="venda">Venda para custear tratamentos</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="additionalInfo" class="form-label info-label">Informações Adicionais</label>
+                                <textarea class="form-control form-control-custom" id="additionalInfo" rows="4"
+                                    placeholder="Alguma informação adicional que considere importante"></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        Concordo com os termos de participação no programa e confirmo que todas as
+                                        informações fornecidas são verdadeiras.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary-custom btn-lg">Enviar Inscrição</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Quais tipos de instituições podem participar?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>Qualquer instituição legalmente constituída que atue no apoio a pessoas em tratamento médico, especialmente aquelas que causam perda de cabelo, como quimioterapia. Isso inclui hospitais, ONGs, associações e fundações.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Com que frequência as doações são enviadas?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>As doações são enviadas trimestralmente, mas a frequência pode variar de acordo com o volume de doações recebidas em nossa barbearia.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Há algum custo para a instituição?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>Não, a participação no programa é totalmente gratuita. Cobrimos os custos de coleta, triagem e envio das doações.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                    Quais são os critérios para aprovação?
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>Analisamos a idoneidade da instituição, a compatibilidade com nossa missão, a capacidade de utilizar as doações de forma adequada e o impacto social do trabalho desenvolvido.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+                    É possível cancelar a participação a qualquer momento?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <p>Sim, a instituição pode solicitar o cancelamento da participação a qualquer momento através de comunicação formal. Da mesma forma, reservamo-nos o direito de descontinuar a parceria caso identifiquemos descumprimento dos termos acordados.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Validação do formulário
+        document.getElementById('institutionForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Validação básica
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('is-invalid');
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+
+            if (isValid) {
+                // Simulação de envio do formulário
+                alert('Inscrição enviada com sucesso! Nossa equipe entrará em contato em até 7 dias úteis.');
+                this.reset();
+            } else {
+                alert('Por favor, preencha todos os campos obrigatórios.');
+            }
+        });
+
+        // Máscara para CNPJ
+        document.getElementById('cnpj').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+
+            if (value.length <= 14) {
+                value = value.replace(/(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/(\d{3})(\d)/, '$1/$2');
+                value = value.replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+            }
+
+            e.target.value = value;
+        });
+
+        // Máscara para telefone
+        document.getElementById('phone').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+
+            if (value.length <= 11) {
+                value = value.replace(/(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            }
+
+            e.target.value = value;
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
+
+</body>
+
+</html>

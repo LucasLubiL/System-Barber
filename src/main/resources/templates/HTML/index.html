@@ -13,28 +13,10 @@
     <title>Home</title>
 </head>
 
+<th:block th:replace="~{/../fragments/head :: head('Casa')}"></th:block>
 <body>
-    <header id="header">
-        <div class="logo">
-            <img src="/img/logoBarbearia.png" alt="Logo da Barbearia">
-        </div>
-        <nav class="navbar">
-            <div>
-                <ul class="nav">
-                    <li><a href="#"><i class="bi bi-house-fill"></i> Home</a></li>
-                    <li><a href="#"><i class="bi bi-calendar-check-fill"></i> Agendamento</a></li>
-                    <li><a href="#servico"><i class="bi bi-scissors"></i> Serviços</a></li>
-                    <li><a href="#sobre-doar"><i class="bi bi-heart-fill"></i> Doação</a></li>
-                    <li><a href="#sobre-cabelo"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
-                </ul>
-            </div>
-        </nav>
-        <a href="agendamento.html" class="btn-login-header">
-            <i class="bi bi-person" style="font-size: 1.2rem;"></i>
-            Login
-        </a>
-        <i class="bi bi-list" id="menu-toggle"></i>
-    </header>
+    
+    <th:block th:replace="~{/../fragments/head :: header}"></th:block>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -468,48 +450,7 @@
 
     <div id="" class="divider"></div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h3> Barbearia do Jean</h3>
-                <p>Transformando autoestima através de cortes de qualidade e ações solidárias.</p>
-
-                <div class="social-links">
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-whatsapp"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h3><i class="bi bi-geo-alt-fill"></i> Endereço</h3>
-                <p>Rua da Barbearia, 123</p>
-                <p>Centro, Patrocínio - MG</p>
-                <p>CEP: 01234-567</p>
-            </div>
-
-            <div class="footer-col">
-                <h3><i class="bi bi-alarm"></i> Horários</h3>
-                <p>Segunda a Sexta: 8h às 19h</p>
-                <p>Sábado: 8h às 18h</p>
-                <p>Domingo: Fechado</p>
-            </div>
-
-            <div class="footer-col">
-                <h3><i class="bi bi-link-45deg"></i> Links Rápidos</h3>
-                <ul>
-                    <li><a href="#"><i class="bi bi-calendar-check-fill"></i> Agendamento Online</a></li>
-                    <li><a href="#"><i class="bi bi-heart-fill"></i> Doação de Cabelo</a></li>
-                    <li><a href="#"><i class="bi bi-scissors"></i> Serviços</a></li>
-                    <li><a href="#"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 Barbearia do Jean - Todos os direitos reservados</p>
-        </div>
-    </footer>
+    <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

@@ -6,9 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
     
-    @GetMapping("/html")
-    public String getMethodName() {
+    @GetMapping("/home")
+    public String getIndex() {
         return "html/index";
+    }
+
+    @GetMapping("/login")
+    public String getLogin() {
+        return "html/login";
+    }
+
+    @GetMapping("/register")
+    public String getRegister() {
+        return "html/register";
     }
 
 }

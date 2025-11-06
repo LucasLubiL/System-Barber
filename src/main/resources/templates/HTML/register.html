@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../CSS/login.css">
+    <title>Registrar</title>
+</head>
+
+<body>
+
+    <form class="form" style="">
+        <p class="title">Register </p>
+        <p class="message">Seja Bem Vindo! Crie agora mesmo sua conta para agendar horários. </p>
+        
+        <label>
+            <input class="input" type="text" placeholder="" required="">
+            <span>Nome Completo</span>
+        </label>
+
+        <div class="flex">
+            <label>
+                <input class="input" type="text" placeholder="" required="">
+                <span>Telefone</span>
+            </label>
+            <label>
+                <input class="input" type="text" placeholder="" required="">
+                <span>CPF</span>
+            </label>
+        </div>
+        <label>
+            <input class="input" type="date" placeholder="" required="">
+            <span>Data de Nascimento</span>
+        </label>
+
+
+        <label>
+            <input class="input" type="email" placeholder="" required="">
+            <span>E-mail</span>
+        </label>
+
+        <label>
+            <input class="input" type="password" placeholder="" required="">
+            <span>Senha</span>
+        </label>
+        <label>
+            <input class="input" type="password" placeholder="" required="">
+            <span>Confirmar senha</span>
+        </label>
+        <button class="submit">Submit</button>
+        <p class="signin">Já tem uma conta ? <a th:href="@{/login}">login</a> </p>
+    </form>
+
+</body>

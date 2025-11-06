@@ -1,0 +1,28 @@
+<head th:fragment="head(title)">
+  <meta charset="ISO-8859-1" />
+  <title th:text="${title}"></title>
+
+</head>
+
+    <header th:fragment="header()" id="header">
+        <div class="logo">
+            <img src="/img/logoBarbearia.png" alt="Logo da Barbearia">
+        </div>
+        <nav class="navbar">
+            <div>
+                <ul class="nav">
+                    <li><a href="#"><i class="bi bi-house-fill"></i> Home</a></li>
+                    <li><a href="#"><i class="bi bi-calendar-check-fill"></i> Agendamento</a></li>
+                    <li><a href="#servico"><i class="bi bi-scissors"></i> Serviços</a></li>
+                    <li><a href="#sobre-doar"><i class="bi bi-heart-fill"></i> Doação</a></li>
+                    <li><a href="#sobre-cabelo"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
+                </ul>
+            </div>
+        </nav>
+        <a href="agendamento.html" class="btn-login-header">
+            <i class="bi bi-person" style="font-size: 1.2rem;"></i>
+            Login
+        </a>
+        <i class="bi bi-list" id="menu-toggle"></i>
+    </header>
+
