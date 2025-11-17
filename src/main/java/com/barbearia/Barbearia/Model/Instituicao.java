@@ -100,4 +100,9 @@ public class Instituicao {
     @Column(length = 1000)
     private String infoAdicional;
 
+    public void save(Instituicao instituicao) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    }
+
 }
