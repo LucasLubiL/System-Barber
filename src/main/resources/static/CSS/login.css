@@ -137,11 +137,32 @@ body {
   background-color: #7c6a6a;
 }
 
+.alert {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+
 @keyframes pulse {
   from {
     transform: scale(0.9);
     opacity: 1;
   }
+
   to {
     transform: scale(1.8);
     opacity: 0;
@@ -153,6 +174,7 @@ body {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
