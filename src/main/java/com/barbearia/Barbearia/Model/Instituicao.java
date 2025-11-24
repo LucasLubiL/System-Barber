@@ -48,10 +48,10 @@ public class Instituicao {
     @Column(nullable = false, length = 200)
     private String email;
 
-    @Size(min = 1, max = 10, message = "O telefone deve ter entre 1 e 10 caracteres")
+    @Size(min = 1, max = 11, message = "O telefone deve ter entre 1 e 11 caracteres")
     @NotBlank(message = "O telefone não pode estar vazio")
     @NotNull
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 11)
     private String telefone;
 
     @Size(min = 1, max = 200, message = "O endereço da insituição deve ter entre 1 e 200 caracteres")
@@ -100,9 +100,125 @@ public class Instituicao {
     @Column(length = 1000)
     private String infoAdicional;
 
-    public void save(Instituicao instituicao) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeInstituicao() {
+        return nomeInstituicao;
+    }
+
+    public void setNomeInstituicao(String nomeInstituicao) {
+        this.nomeInstituicao = nomeInstituicao;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public String getCargoResponsavel() {
+        return cargoResponsavel;
+    }
+
+    public void setCargoResponsavel(String cargoResponsavel) {
+        this.cargoResponsavel = cargoResponsavel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getTipoInstituicao() {
+        return tipoInstituicao;
+    }
+
+    public void setTipoInstituicao(String tipoInstituicao) {
+        this.tipoInstituicao = tipoInstituicao;
+    }
+
+    public String getMissaoInstituicao() {
+        return missaoInstituicao;
+    }
+
+    public void setMissaoInstituicao(String missaoInstituicao) {
+        this.missaoInstituicao = missaoInstituicao;
+    }
+
+    public String getPublicoBeneficiado() {
+        return publicoBeneficiado;
+    }
+
+    public void setPublicoBeneficiado(String publicoBeneficiado) {
+        this.publicoBeneficiado = publicoBeneficiado;
+    }
+
+    public String getComoUsar() {
+        return comoUsar;
+    }
+
+    public void setComoUsar(String comoUsar) {
+        this.comoUsar = comoUsar;
+    }
+
+    public String getInfoAdicional() {
+        return infoAdicional;
+    }
+
+    public void setInfoAdicional(String infoAdicional) {
+        this.infoAdicional = infoAdicional;
     }
 
 }

@@ -238,3 +238,84 @@ textarea.form-control-custom {
     width: 50%;
     margin-left: 25%;
 }
+
+.p-how{
+    color:rgb(255, 255, 255) !important;
+}
+
+.accordion {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+}
+
+.accordion-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.accordion-button {
+    background: transparent;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 1rem 1.25rem;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+.accordion-button:not(.collapsed) {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.accordion-button:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.accordion-button:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.12);
+    outline-offset: 2px;
+}
+
+.accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-body {
+    background: rgba(0, 0, 0, 0.28);
+    color: rgba(255, 255, 255, 0.88);
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.accordion-body p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 0.98rem;
+}
+
+.accordion-collapse {
+    transition: height 0.18s ease;
+}
+
+@media (max-width: 768px) {
+    .accordion {
+        margin: 2rem auto;
+    }
+
+    .accordion-button {
+        font-size: 1rem;
+        padding: 0.9rem 1rem;
+    }
+
+    .accordion-body {
+        padding: 0.9rem 1rem;
+    }
+}
