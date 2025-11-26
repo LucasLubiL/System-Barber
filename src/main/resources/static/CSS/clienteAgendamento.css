@@ -1,0 +1,301 @@
+*{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+:root {
+    --primary-color: #7c6a6a;
+    --secondary-color: #1a1a1a;
+    --accent-color: #c9bdbd;
+    --text-color: #ffffff;
+    --background-dark: #1f150e;
+    --card-bg: rgba(26, 26, 26, 0.8);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+    background: radial-gradient(circle at center, var(--background-dark) 0%, var(--secondary-color) 100%);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+/* Cabeçalho renomeado */
+.Lal_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.Lal_profileHeader {
+    display: flex;
+    align-items: center;
+}
+
+/* imagem principal (fora do modal) */
+.Lal_profileImg {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 3px solid var(--primary-color);
+    background: rgba(255,255,255,0.02);
+}
+
+.Lal_profileInfo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.profile-info p {
+    margin: 5px 0 0;
+    color: var(--accent-color);
+}
+
+/* botão de editar (mantive a classe original btn-edit-profile conforme solicitado) */
+.btn-edit-profile {
+    background: linear-gradient(45deg, var(--primary-color), #5d4e4e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(124, 106, 106, 0.3);
+}
+
+.btn-edit-profile:hover {
+    background: linear-gradient(45deg, #8a7575, var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(124, 106, 106, 0.4);
+    color: white;
+}
+
+/* Seção renomeada */
+.Lal_section {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: 1px solid rgba(124, 106, 106, 0.2);
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #7a6565, transparent);
+    margin: 30px 0;
+}
+
+/* título renomeado */
+.Lal_sectionTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(124, 106, 106, 0.3);
+}
+
+.Lal_sectionTitle i {
+    margin-right: 8px;
+}
+
+/* Agendamento items renomeados */
+.Lal_agendamentoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(124, 106, 106, 0.2);
+}
+
+.Lal_agendamentoItem:last-child {
+    border-bottom: none;
+}
+
+.Lal_agendamentoInfo h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.Lal_agendamentoInfo p {
+    margin: 5px 0 0;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.Lal_agendamentoInfo p i {
+    margin-right: 5px;
+}
+
+.Lal_agendamentoStatus {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-pendente {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-concluido {
+    background-color: rgba(40, 167, 69, 0.2);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+/* botão agendar renomeado */
+.Lal_btnAgendar {
+    background: linear-gradient(45deg, var(--primary-color), #5d4e4e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 20px auto 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(124, 106, 106, 0.3);
+}
+
+.Lal_btnAgendar:hover {
+    background: linear-gradient(45deg, #8a7575, var(--primary-color));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(124, 106, 106, 0.4);
+    color: white;
+}
+
+/* empty state renomeado */
+.Lal_emptyState {
+    text-align: center;
+    padding: 30px 0;
+    color: var(--accent-color);
+}
+
+.Lal_emptyState i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+/* badge renomeado */
+.Lal_badgeContador {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    margin-left: 8px;
+}
+
+/* detalhes renomeados */
+.Lal_profileDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.Lal_detailItem {
+    margin-bottom: 15px;
+}
+
+.Lal_detailLabel {
+    font-size: 0.9rem;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+}
+
+.Lal_detailValue {
+    font-weight: 500;
+}
+
+/* Modal com fundo sólido (não-transparente) - mantive como antes */
+.modal-content {
+    background-color: var(--secondary-color); /* cor sólida do modal */
+    color: var(--text-color);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
+
+/* Form controls dentro do modal (mantive nomes originais) */
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    color: var(--text-color);
+}
+
+/* PLACEHOLDERS: visíveis em branco */
+.form-control::placeholder {
+    color: #ffffff;
+    opacity: 1; /* garantir visibilidade */
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #ffffff;
+    opacity: 1;
+}
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+    color: #ffffff;
+    opacity: 1;
+}
+
+/* foco */
+.form-control:focus, .form-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(124, 106, 106, 0.25);
+}
+
+.form-label {
+    color: var(--accent-color);
+}
+
+/* preview dentro do modal (mantive) */
+.profile-img-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    margin: 0 auto 15px;
+    display: block;
+    background: rgba(255,255,255,0.02);
+}
+
+/* espaço para listas vazias (renomeado) */
+.Lal_agendamentosList {
+    min-height: 60px;
+}
