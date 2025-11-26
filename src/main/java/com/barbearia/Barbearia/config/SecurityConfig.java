@@ -31,7 +31,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(requests -> requests
                 // PÁGINAS PÚBLICAS (não precisa estar logado)
                 .requestMatchers("/", "/home", "/instituicao", "/instituicao/save", "/login", "/register", "/saveUser",
-                        "/CSS/**", "/JS/**", "/images/**", "/img/**")
+                        "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**")
                 .permitAll()
 
                 // PÁGINAS PARA CLIENTES (ROLE_CLIENT)

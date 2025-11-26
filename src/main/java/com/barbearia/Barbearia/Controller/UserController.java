@@ -23,8 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
 import java.io.IOException;
 
+import com.barbearia.Barbearia.Model.Barbeiro;
 import com.barbearia.Barbearia.Model.RegisterUser;
 import com.barbearia.Barbearia.Model.User;
+import com.barbearia.Barbearia.service.BarbeiroService;
+import com.barbearia.Barbearia.service.InstituicaoService;
+import com.barbearia.Barbearia.service.ServicoService;
 import com.barbearia.Barbearia.service.UserService;
 
 import jakarta.validation.Valid;
@@ -32,11 +36,20 @@ import jakarta.validation.Valid;
 @Controller
 public class UserController {
 
-    @Autowired
+   @Autowired
     private UserService userService;
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private BarbeiroService barbeiroService;
+
+    @Autowired
+    private InstituicaoService instituicaoService;
+
+    @Autowired
+    private ServicoService servicoService;
 
     @GetMapping("/")
     public String root() {
@@ -98,6 +111,69 @@ public class UserController {
         return "redirect:/login?registered";
     }
 
+    @GetMapping("/registerBarbeiro")
+    public String getRegisterBarbeiro(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("errorMessage", "As senhas não coincidem!");
+        }
+        model.addAttribute("barbeiro", new Barbeiro());
+        return "HTML/registerBarbeiro";
+    }
+
+    @PostMapping("/saveBarbeiro")
+    public String saveBarbeiro(@Valid @ModelAttribute Barbeiro barbeiro,
+            BindingResult result,
+            @RequestParam("confirmarSenha") String confirmarSenha,
+            Model model) {
+
+        if (result.hasErrors()) {
+            return "HTML/registerBarbeiro";
+        }
+
+        if (!userService.validatePasswords(barbeiro.getSenha(), confirmarSenha)) {
+            model.addAttribute("errorMessage", "As senhas não coincidem!");
+            return "HTML/registerBarbeiro";
+        }
+
+        barbeiroService.registerNewBarbeiro(barbeiro);
+
+        return "redirect:/login?registered";
+    }
+
+    /*
+     * @GetMapping("/agendamento")
+     * public String redirectAgendamento(@AuthenticationPrincipal UserDetails
+     * userDetails,
+     * 
+     * @RequestParam(required = false) String success,
+     * Model model) {
+     * 
+     * if (userDetails == null) {
+     * return "redirect:/login";
+     * }
+     * 
+     * // BUSCA O RegisterUser
+     * RegisterUser registerUser =
+     * userService.findRegisterUserByEmail(userDetails.getUsername());
+     * model.addAttribute("registerUser", registerUser);
+     * 
+     * // ADICIONA AS VARIÁVEIS PARA O HEADER (igual ao /home)
+     * String primeiroNome = registerUser.getNomeCompleto().split(" ")[0];
+     * model.addAttribute("userName", primeiroNome);
+     * model.addAttribute("isAuthenticated", true);
+     * 
+     * // VERIFICA SE É BARBEIRO OU CLIENTE
+     * boolean isBarber = userDetails.getAuthorities().stream()
+     * .anyMatch(auth -> auth.getAuthority().equals("ROLE_BARBER"));
+     * 
+     * if (isBarber) {
+     * return "HTML/barberAgendamento";
+     * } else {
+     * return "HTML/clienteAgendamento";
+     * }
+     * }
+     */
+
     @GetMapping("/agendamento")
     public String redirectAgendamento(@AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(required = false) String success,
@@ -107,55 +183,90 @@ public class UserController {
             return "redirect:/login";
         }
 
-        // BUSCA O RegisterUser
-        RegisterUser registerUser = userService.findRegisterUserByEmail(userDetails.getUsername());
-        model.addAttribute("registerUser", registerUser);
-
-        // ADICIONA AS VARIÁVEIS PARA O HEADER (igual ao /home)
-        String primeiroNome = registerUser.getNomeCompleto().split(" ")[0];
-        model.addAttribute("userName", primeiroNome);
-        model.addAttribute("isAuthenticated", true);
-
         // VERIFICA SE É BARBEIRO OU CLIENTE
         boolean isBarber = userDetails.getAuthorities().stream()
                 .anyMatch(auth -> auth.getAuthority().equals("ROLE_BARBER"));
 
         if (isBarber) {
+            // BUSCA O BARBEIRO
+            Barbeiro barbeiro = barbeiroService.findBarbeiroByEmail(userDetails.getUsername());
+            model.addAttribute("barbeiro", barbeiro);
+
+            // CARREGA TODOS OS DADOS PARA OS MODAIS
+            model.addAttribute("instituicoes", instituicaoService.getAllInstituicoes());
+            model.addAttribute("barbeiros", barbeiroService.getAllBarbeiros());
+            model.addAttribute("servicos", servicoService.getAllServicos());
+
+            String primeiroNome = barbeiro.getNomeCompleto().split(" ")[0];
+            model.addAttribute("userName", primeiroNome);
+            model.addAttribute("isAuthenticated", true);
+
             return "HTML/barberAgendamento";
         } else {
+            // BUSCA O CLIENTE
+            RegisterUser registerUser = userService.findRegisterUserByEmail(userDetails.getUsername());
+            model.addAttribute("registerUser", registerUser);
+
+            String primeiroNome = registerUser.getNomeCompleto().split(" ")[0];
+            model.addAttribute("userName", primeiroNome);
+            model.addAttribute("isAuthenticated", true);
+
             return "HTML/clienteAgendamento";
         }
     }
 
-    // ...existing code...
     @PostMapping("/putUser")
     public String updateUser(@RequestParam Long id,
-                            @RequestParam String nomeCompleto,
-                            @RequestParam String dataNascimento,
-                            @RequestParam String cpf,
-                            @RequestParam String telefone,
-                            @RequestParam String email,
-                            @RequestParam(required = false) MultipartFile foto,
-                            @AuthenticationPrincipal UserDetails userDetails) throws IOException {
-        
+            @RequestParam String nomeCompleto,
+            @RequestParam String dataNascimento,
+            @RequestParam String cpf,
+            @RequestParam String telefone,
+            @RequestParam String email,
+            @RequestParam(required = false) MultipartFile foto,
+            @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+
         String emailAntigo = userDetails.getUsername();
-        
+
         // DELEGA TUDO PARA O SERVICE
         userService.updateUserProfile(id, nomeCompleto, dataNascimento, cpf, telefone, email, foto);
-        
+
         // SE O EMAIL MUDOU, ATUALIZA A SESSÃO
         if (!emailAntigo.equals(email)) {
             UserDetails updatedUserDetails = userDetailsService.loadUserByUsername(email);
             Authentication newAuth = new UsernamePasswordAuthenticationToken(
-                updatedUserDetails, 
-                updatedUserDetails.getPassword(), 
-                updatedUserDetails.getAuthorities()
-            );
+                    updatedUserDetails,
+                    updatedUserDetails.getPassword(),
+                    updatedUserDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
-        
+
         return "redirect:/agendamento?success=true";
     }
-    // ...existing code...
+
+    @PostMapping("/putBarbeiro")
+    public String updateBarbeiro(@RequestParam Long id,
+            @RequestParam String nomeCompleto,
+            @RequestParam String telefone,
+            @RequestParam String especialidade,
+            @RequestParam(required = false) String biografia,
+            @RequestParam String email,
+            @RequestParam(required = false) MultipartFile foto,
+            @AuthenticationPrincipal UserDetails userDetails) throws IOException {
+
+        String emailAntigo = userDetails.getUsername();
+
+        barbeiroService.updateBarbeiroProfile(id, nomeCompleto, telefone, especialidade, biografia, email, foto);
+
+        if (!emailAntigo.equals(email)) {
+            UserDetails updatedUserDetails = userDetailsService.loadUserByUsername(email);
+            Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                    updatedUserDetails,
+                    updatedUserDetails.getPassword(),
+                    updatedUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
+        }
+
+        return "redirect:/agendamento?success=true";
+    }
 
 }

@@ -52,9 +52,20 @@ public class InstituicaoController {
     }
 
     @GetMapping("/instituicao/inscritas")
-    public String getInstituicoesInscritas(Model model) {
+    public String getInstituicoesInscritas(Model model,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        // Carrega todas as instituições
         model.addAttribute("instituicoes", instituicaoService.getAllInstituicoes());
-        return "HTML/instituicoesInscritas";
+
+        // Adiciona dados do usuário se estiver logado
+        if (userDetails != null) {
+            User user = userService.findByEmail(userDetails.getUsername());
+            model.addAttribute("userName", user.getName().split(" ")[0]);
+            model.addAttribute("isAuthenticated", true);
+        }
+
+        return "HTML/barberAgendamento :: #barber-listOngs";
     }
 
     @PostMapping("/instituicao/save")

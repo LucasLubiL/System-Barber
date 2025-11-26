@@ -22,19 +22,17 @@ public class InstituicaoServiceImpl implements InstituicaoService {
 
     @Override
     public List<Instituicao> getAllInstituicoes() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllInstituicoes'");
+        return instituicaoRepository.findAll();
     }
 
     @Override
     public Instituicao getInstituicaoById(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getInstituicaoById'");
+        return instituicaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Instituição não encontrada"));
     }
 
     @Override
     public void deleteInstituicaoById(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteInstituicaoById'");
+        instituicaoRepository.deleteById(id);
     }
 }
