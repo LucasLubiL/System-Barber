@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +34,8 @@ public class BarbeiroServiceImpl implements BarbeiroService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    private static final String UPLOAD_DIR = "uploads/";
+
     @Override
     public Barbeiro findBarbeiroByEmail(String email) {
         return barbeiroRepo.findByEmail(email)
@@ -55,10 +57,26 @@ public class BarbeiroServiceImpl implements BarbeiroService {
         barbeiro.setBiografia(biografia);
         barbeiro.setEmail(email);
 
+        // SALVAR FOTO COMO ARQUIVO (igual UserServiceImpl)
         if (foto != null && !foto.isEmpty()) {
-            String base64Image = "data:image/jpeg;base64," +
-                    Base64.getEncoder().encodeToString(foto.getBytes());
-            barbeiro.setFoto(base64Image);
+            // Criar diretório se não existir
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Gerar nome único para o arquivo
+            String originalFilename = foto.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename.replace(extension, "")
+                    + extension;
+
+            // Salvar arquivo no sistema
+            Path filePath = uploadPath.resolve(uniqueFilename);
+            Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Salvar caminho relativo no banco
+            barbeiro.setFoto(UPLOAD_DIR + uniqueFilename);
         }
 
         barbeiroRepo.save(barbeiro);
@@ -167,5 +185,5 @@ public class BarbeiroServiceImpl implements BarbeiroService {
 
         barbeiroRepo.deleteById(id);
     }
-    
+
 }

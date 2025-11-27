@@ -2,7 +2,9 @@ package com.barbearia.Barbearia.impl;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -10,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,11 +23,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartFile;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 
 import com.barbearia.Barbearia.Model.RegisterUser;
 import com.barbearia.Barbearia.Model.User;
@@ -45,6 +43,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    private static final String UPLOAD_DIR = "uploads/";
 
     @Override
     public Integer saveUser(User user) {
@@ -105,41 +105,47 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void updateUserProfile(Long id, String nomeCompleto, String dataNascimento, String cpf, String telefone, String email, MultipartFile foto) throws IOException {
+    public void updateUserProfile(Long id, String nomeCompleto, String dataNascimento, String cpf, String telefone,
+            String email, MultipartFile foto) throws IOException {
         RegisterUser registerUser = registerUserRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-        
+
         String emailAntigo = registerUser.getEmail();
-        
+
         registerUser.setNomeCompleto(nomeCompleto);
         registerUser.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ISO_LOCAL_DATE));
         registerUser.setCpf(cpf);
         registerUser.setTelefone(telefone);
         registerUser.setEmail(email);
-        
+
+        // SALVAR FOTO COMO ARQUIVO (igual antes)
         if (foto != null && !foto.isEmpty()) {
-            String nomeArquivo = UUID.randomUUID().toString() + "_" + foto.getOriginalFilename();
-            
-            // Pasta uploads na raiz do projeto
-            Path uploadPath = Paths.get("uploads/fotos/");
-            
+            // Criar diretório se não existir
+            Path uploadPath = Paths.get(UPLOAD_DIR);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
-            
-            Path filePath = uploadPath.resolve(nomeArquivo);
-            Files.copy(foto.getInputStream(), filePath);
-            
-            String fotoCaminho = "/uploads/fotos/" + nomeArquivo;
-            registerUser.setFoto(fotoCaminho);
+
+            // Gerar nome único para o arquivo
+            String originalFilename = foto.getOriginalFilename();
+            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+            String uniqueFilename = UUID.randomUUID().toString() + "_" + originalFilename.replace(extension, "")
+                    + extension;
+
+            // Salvar arquivo no sistema
+            Path filePath = uploadPath.resolve(uniqueFilename);
+            Files.copy(foto.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            // Salvar caminho relativo no banco
+            registerUser.setFoto(UPLOAD_DIR + uniqueFilename);
         }
-        
+
         registerUserRepo.save(registerUser);
 
         // ATUALIZA A TABELA DE AUTENTICAÇÃO
         User user = userRepo.findByEmail(emailAntigo)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado na tabela de autenticação"));
-        
+
         user.setName(nomeCompleto);
         user.setEmail(email);
         userRepo.save(user);

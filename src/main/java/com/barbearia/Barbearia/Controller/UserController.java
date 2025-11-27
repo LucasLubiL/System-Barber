@@ -26,6 +26,7 @@ import java.io.IOException;
 import com.barbearia.Barbearia.Model.Barbeiro;
 import com.barbearia.Barbearia.Model.RegisterUser;
 import com.barbearia.Barbearia.Model.User;
+import com.barbearia.Barbearia.service.AgendamentoService;
 import com.barbearia.Barbearia.service.BarbeiroService;
 import com.barbearia.Barbearia.service.InstituicaoService;
 import com.barbearia.Barbearia.service.ServicoService;

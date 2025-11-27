@@ -19,61 +19,69 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
 
-    @Autowired
-    private UserDetailsService uds;
+        @Autowired
+        private UserDetailsService uds;
 
-    @Autowired
-    private BCryptPasswordEncoder encoder;
+        @Autowired
+        private BCryptPasswordEncoder encoder;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests(requests -> requests
-                // PÁGINAS PÚBLICAS (não precisa estar logado)
-                .requestMatchers("/", "/home", "/instituicao", "/instituicao/save", "/login", "/register", "/saveUser",
-                        "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**")
-                .permitAll()
+                http.authorizeHttpRequests(requests -> requests
+                                // PÁGINAS PÚBLICAS (não precisa estar logado)
+                                .requestMatchers("/", "/home", "/instituicao", "/instituicao/save", "/login",
+                                                "/register", "/saveUser",
+                                                "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**")
+                                .permitAll()
 
-                // PÁGINAS PARA CLIENTES (ROLE_CLIENT)
-                .requestMatchers("/cliente/**", "/agendamentoClient/**").hasAuthority("ROLE_CLIENT")
+                                // PÁGINAS PARA CLIENTES (ROLE_CLIENT)
+                                .requestMatchers("/cliente/**", "/agendamentoClient/**",
+                                                "/saveAgendamento", "/cancelarAgendamento")
+                                .hasAuthority("ROLE_CLIENT")
 
-                // PÁGINAS PARA BARBEIROS (ROLE_BARBER)
-                .requestMatchers("/barbeiro/**", "/agendamentoBarber/**").hasAuthority("ROLE_BARBER")
+                                // PÁGINAS PARA BARBEIROS (ROLE_BARBER)
+                                .requestMatchers("/barbeiro/**", "/agendamentoBarber/**").hasAuthority("ROLE_BARBER")
 
-                // PÁGINAS PARA ADMIN (ROLE_ADMIN)
-                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+                                // PÁGINAS PARA ADMIN (ROLE_ADMIN)
+                                .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 
-                // QUALQUER OUTRA ROTA EXIGE AUTENTICAÇÃO
-                .anyRequest().authenticated())
+                                // QUALQUER OUTRA ROTA EXIGE AUTENTICAÇÃO
+                                .anyRequest().authenticated())
 
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/instituicao/save")) // D
+                                // ...existing code...
 
-                .formLogin(login -> login
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home", true)
-                        .failureUrl("/login?error=true")
-                        .permitAll())
+                                .csrf(csrf -> csrf
+                                                .ignoringRequestMatchers("/instituicao/save", "/saveAgendamento",
+                                                                "/cancelarAgendamento"))
 
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/home")
-                        .permitAll())
+                                // ...existing code...
 
-                .exceptionHandling(handling -> handling
-                        .accessDeniedPage("/accessDenied"))
+                                .formLogin(login -> login
+                                                .loginPage("/login")
+                                                .loginProcessingUrl("/login")
+                                                .defaultSuccessUrl("/home", true)
+                                                .failureUrl("/login?error=true")
+                                                .permitAll())
 
-                .authenticationProvider(authenticationProvider(uds, encoder));
+                                .logout(logout -> logout
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessUrl("/home")
+                                                .permitAll())
 
-        return http.build();
-    }
+                                .exceptionHandling(handling -> handling
+                                                .accessDeniedPage("/accessDenied"))
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService,
-            PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
-    }
+                                .authenticationProvider(authenticationProvider(uds, encoder));
+
+                return http.build();
+        }
+
+        @Bean
+        public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService,
+                        PasswordEncoder passwordEncoder) {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+                authProvider.setPasswordEncoder(passwordEncoder);
+                return authProvider;
+        }
 }

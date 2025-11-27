@@ -24,7 +24,7 @@ public interface UserService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    void updateUserProfile(Long id, String nomeCompleto, String dataNascimento, String cpf, String telefone,
+    public void updateUserProfile(Long id, String nomeCompleto, String dataNascimento, String cpf, String telefone,
             String email, MultipartFile foto) throws IOException;
 
 }

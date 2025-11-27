@@ -1,0 +1,310 @@
+:root {
+    --primary-color: #7c6a6a;
+    --secondary-color: #1a1a1a;
+    --accent-color: #c9bdbd;
+    --text-color: #ffffff;
+    --background-dark: #1f150e;
+    --card-bg: #1a1a1a;
+}
+
+.btn-outline-custom {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    background: none;
+    cursor: pointer;
+}
+
+.btn-outline-custom:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid rgba(124, 106, 106, 0.3);
+}
+
+.form-control,
+.form-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    color: var(--text-color);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.25rem rgba(124, 106, 106, 0.25);
+}
+
+.form-label {
+    color: var(--accent-color);
+}
+
+.card-barbeiro {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.card-barbeiro:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.card-barbeiro.selected {
+    border-color: var(--primary-color);
+    background: rgba(124, 106, 106, 0.1);
+}
+
+.barbeiro-card-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+    margin: 0 auto 10px;
+}
+
+.horario-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    color: var(--text-color);
+    border-radius: 6px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.horario-btn:hover {
+    background: rgba(124, 106, 106, 0.1);
+}
+
+.horario-btn.selected {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.resumo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(124, 106, 106, 0.3);
+}
+
+.resumo-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.resumo-label {
+    color: var(--accent-color);
+}
+
+.resumo-valor {
+    font-weight: 500;
+}
+
+.upload-area {
+    border: 2px dashed rgba(124, 106, 106, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+    opacity: 0.7;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    opacity: 1;
+}
+
+.radio-custom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.radio-custom input[type="radio"] {
+    display: none;
+}
+
+.radio-custom .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    margin-right: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-custom input[type="radio"]:checked+.checkmark {
+    background-color: var(--primary-color);
+}
+
+.radio-custom input[type="radio"]:checked+.checkmark:after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.section-divider {
+    border-bottom: 1px solid rgba(124, 106, 106, 0.3);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.calendar-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    margin-bottom: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    text-align: center;
+    padding: 8px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    background: rgba(124, 106, 106, 0.1);
+}
+
+.calendar-day.selected {
+    background: var(--primary-color);
+    color: white;
+}
+
+.calendar-day.other-month {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-weekday {
+    text-align: center;
+    padding: 5px;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.8rem;
+}
+
+.doador-section {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.carousel-item .row {
+    justify-content: center;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(124, 106, 106, 0.3);
+    color: var(--accent-color);
+}
+
+.btn-secondary:hover {
+    background: rgba(124, 106, 106, 0.1);
+    color: white;
+}
+
+#btnAgendar {
+    background: linear-gradient(45deg, var(--primary-color), #5d4e4e);
+    color: white !important;
+    margin-top: 2px;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 12px rgba(124, 106, 106, 0.3);
+}
+
+#btnAgendar:hover {
+    background: linear-gradient(45deg, #8a7575, var(--primary-color));
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 15px rgba(124, 106, 106, 0.4);
+    color: white !important;
+}
+
+#servicoSelecionado.form-select {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    border: 1px solid rgba(124, 106, 106, 0.3);
+}
+
+/* opções dentro do select */
+#servicoSelecionado option {
+    background-color: #1a1a1a;  /* fundo escuro */
+    color: white;               /* texto branco */
+}
