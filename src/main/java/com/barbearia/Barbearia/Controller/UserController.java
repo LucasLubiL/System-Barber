@@ -36,7 +36,7 @@ import jakarta.validation.Valid;
 @Controller
 public class UserController {
 
-   @Autowired
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -206,6 +206,10 @@ public class UserController {
             // BUSCA O CLIENTE
             RegisterUser registerUser = userService.findRegisterUserByEmail(userDetails.getUsername());
             model.addAttribute("registerUser", registerUser);
+
+            // CARREGA DADOS PARA OS MODAIS DO CLIENTE TAMBÉM
+            model.addAttribute("barbeiros", barbeiroService.getAllBarbeiros());
+            model.addAttribute("servicos", servicoService.getAllServicos());
 
             String primeiroNome = registerUser.getNomeCompleto().split(" ")[0];
             model.addAttribute("userName", primeiroNome);

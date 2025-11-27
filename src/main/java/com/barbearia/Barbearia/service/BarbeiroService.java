@@ -11,7 +11,8 @@ public interface BarbeiroService {
 
     public Barbeiro findBarbeiroByEmail(String email);
 
-    public void updateBarbeiroProfile(Long id, String nomeCompleto, String telefone, String especialidade, String biografia,
+    public void updateBarbeiroProfile(Long id, String nomeCompleto, String telefone, String especialidade,
+            String biografia,
             String email, MultipartFile foto) throws IOException;
 
     public void registerNewBarbeiro(Barbeiro barbeiro);
@@ -19,5 +20,12 @@ public interface BarbeiroService {
     public void saveBarbeiro(Barbeiro barbeiro);
 
     public List<Barbeiro> getAllBarbeiros();
+
+    public Barbeiro getBarbeiroById(Long id);
+    
+    public void deleteBarbeiro(Long id);
+
+    void createBarbeiroFromParams(String nomeCompleto, String especialidade, String telefone,
+            String email, String senha, String confirmarSenha);
 
 }

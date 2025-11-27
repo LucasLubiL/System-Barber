@@ -31,10 +31,10 @@ public class Barbeiro {
 
     @NotBlank(message = "A especialidade não pode estar vazia")
     @Size(min = 2, max = 200, message = "A especialidade deve ter entre 2 e 200 caracteres")
-    @Column(nullable = false, unique = true, length = 200)
+    @Column(nullable = false, length = 200)
     private String especialidade;
 
-    @Column(name = "biografia", columnDefinition = "TEXT")
+    @Column(name = "biografia", nullable = true, columnDefinition = "TEXT")
     private String biografia; // MUDOU: agora é String!
 
     @NotBlank(message = "O email não pode estar vazio")
@@ -45,8 +45,8 @@ public class Barbeiro {
     @Column(nullable = false)
     private String senha;
 
-    @Column(name = "foto")
-    private String foto; // Armazena em Base64
+    @Column(name = "foto", nullable = true, columnDefinition = "TEXT")
+    private String foto; // ADICIONE columnDefinition = "TEXT" AQUI
 
     public String getFoto() {
         return foto;

@@ -10,4 +10,6 @@ import com.barbearia.Barbearia.Model.Barbeiro;
 @Repository
 public interface BarbeiroRepository extends JpaRepository<Barbeiro, Long> {
     Optional<Barbeiro> findByEmail(String email);
+    boolean existsByEmail(String email);
+
 }
