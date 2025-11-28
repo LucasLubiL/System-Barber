@@ -78,7 +78,64 @@
             </h2>
 
             <div id="Lal_upcomingList" class="Lal_agendamentosList">
-                <!-- Renderize aqui os .Lal_agendamentoItem pelo servidor (se houver) -->
+                <div th:if="${#lists.isEmpty(agendamentos)}" class="text-center text-muted py-4">
+                    <i class="bi bi-calendar-x" style="font-size: 3rem; color: #7c6a6a;"></i>
+                    <p class="mt-2" style="color: #7c6a6a;">Você ainda não possui agendamentos.</p>
+                </div>
+
+                <div th:each="agendamento : ${agendamentos}"
+                    th:if="${agendamento.status == 'Confirmado' or agendamento.status == 'Pendente'}"
+                    class="Lal_agendamentoItem">
+                    <div class="Lal_agendamentoInfo">
+                        <h3 class="Lal_agendamentoServico" style="display: flex; align-items: center; gap: 8px;">
+                            <i class="bi bi-person"></i>
+                            <span th:text="${agendamento.barbeiro.nomeCompleto}"></span>
+                        </h3>
+                        <p class="Lal_agendamentoValor" style="display: flex; align-items: center; gap: 8px;">
+
+                            <i class="bi bi-scissors"></i>
+                            <span th:text="${agendamento.servico}"></span>
+                            -
+                            <span th:text="'R$ ' + ${#numbers.formatDecimal(agendamento.valor, 1, 2)}"></span>
+                        </p>
+                        <p class="Lal_agendamentoData">
+                            <i class="bi bi-calendar3"></i>
+                            <span th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')}"></span>
+                            &nbsp às &nbsp
+                            <span th:text="${#temporals.format(agendamento.hora, 'HH:mm')}"></span>
+
+                            <!-- DOADOR: aparece ao lado da data/hora -->
+                            <span class="Lal_doadorTag" th:if="${agendamento.doador}">
+                                <i class="bi bi-heart-fill"></i>
+                                <span class="Lal_doadorText">Doador de cabelo</span>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="Lal_agendamentoStatus">
+                        <span class="Lal_statusBadge"
+                            th:classappend="${agendamento.status == 'Confirmado' ? 'Lal_statusConfirmado' : 'Lal_statusPendente'}"
+                            th:text="${agendamento.status}">
+                        </span>
+
+                        <!-- container das ações: botões lado a lado -->
+                        <div class="Lal_statusActions"
+                            th:if="${(agendamento.doador and agendamento.foto != null) or agendamento.status == 'Confirmado'}">
+                            <!-- BOTÃO VER FOTO (vai aparecer só se houver foto do doador) -->
+                            <button th:if="${agendamento.doador and agendamento.foto != null}"
+                                class="btn btn-sm Lal_btnFoto" onclick="visualizarFoto(this)"
+                                th:attr="data-foto=${agendamento.foto}">
+                                <i class="bi bi-image"></i> Ver Foto
+                            </button>
+
+                            <!-- BOTÃO CANCELAR (aparece só em próximos agendamentos onde existe cancelar) -->
+                            <button th:if="${agendamento.status == 'Confirmado' or agendamento.status == 'Pendente'}"
+                                class="btn btn-sm btn-outline-danger" th:attr="data-agendamento-id=${agendamento.id}"
+                                onclick="abrirModalCancelar(this)">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <button class="Lal_btnAgendar" id="Lal_btnNovoAgendamento" type="button" data-bs-target="#agendarModal"
@@ -94,7 +151,57 @@
             </h2>
 
             <div id="Lal_historyList" class="Lal_agendamentosList">
-                <!-- Renderize aqui os .Lal_agendamentoItem pelo servidor (se houver) -->
+                <div th:if="${#lists.isEmpty(agendamentos)}" class="text-center text-muted py-4">
+                    <i class="bi bi-journal-x" style="font-size: 3rem; color: #7c6a6a;"></i>
+                    <p class="mt-2" style="color: #7c6a6a;">Seu histórico de agendamentos aparecerá aqui.</p>
+                </div>
+
+                <div th:each="agendamento : ${agendamentos}"
+                    th:if="${agendamento.status == 'Cancelado' or agendamento.status == 'Concluido'}"
+                    class="Lal_agendamentoItem">
+
+                    <div class="Lal_agendamentoInfo">
+                        <h3 class="Lal_agendamentoServico" style="display: flex; align-items: center; gap: 8px;">
+                            <i class="bi bi-person"></i>
+                            <span th:text="${agendamento.barbeiro.nomeCompleto}"></span>
+                        </h3>
+                        <p class="Lal_agendamentoValor" style="display: flex; align-items: center; gap: 8px;">
+                            <i class="bi bi-scissors"></i>
+                            <span th:text="${agendamento.servico}"></span>
+                            -
+                            <span th:text="'R$ ' + ${#numbers.formatDecimal(agendamento.valor, 1, 2)}"></span>
+                        </p>
+
+                        <p class="Lal_agendamentoData">
+                            <i class="bi bi-calendar3"></i>
+                            <span th:text="${#temporals.format(agendamento.data, 'dd/MM/yyyy')}"></span>
+                            &nbsp às &nbsp
+                            <span th:text="${#temporals.format(agendamento.hora, 'HH:mm')}"></span>
+
+                            <!-- DOADOR: fica ao lado da data/hora -->
+                            <span class="Lal_doadorTag" th:if="${agendamento.doador}">
+                                <i class="bi bi-heart-fill"></i>
+                                <span class="Lal_doadorText">Doador de cabelo</span>
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="Lal_agendamentoStatus">
+                        <span class="Lal_statusBadge"
+                            th:classappend="${agendamento.status == 'Cancelado' ? 'Lal_statusCancelado' : 'Lal_statusConcluido'}"
+                            th:text="${agendamento.status}">
+                        </span>
+
+                        <!-- container de ações (mantém layout consistente caso adicione mais botões) -->
+                        <div class="Lal_statusActions" th:if="${agendamento.doador and agendamento.foto != null}">
+                            <!-- BOTÃO VER FOTO com a classe Lal_btnFoto (mesmo estilo do cancelar, só marrom) -->
+                            <button class="btn btn-sm Lal_btnFoto" th:attr="data-foto=${agendamento.foto}"
+                                onclick="visualizarFoto(this)">
+                                <i class="bi bi-image"></i> Ver Foto
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -440,7 +547,7 @@
                                 </div>
                                 <div class="resumo-item">
                                     <span class="resumo-label">Valor:</span>
-                                    <span class="resumo-valor" id="resumoValor">R$ 0,00</span>
+                                    <span class="resumo-valor" id="resumoValor">R$</span>
                                 </div>
                             </div>
                         </div>
@@ -478,20 +585,87 @@
         </div>
     </div>
 
-    <!-- Modal de Mensagem -->
-    <div class="modal fade" id="modalMensagem" tabindex="-1" aria-labelledby="modalMensagemLabel" aria-hidden="true">
+    <div class="modal fade" id="modalMensagem" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header" id="modalMensagemHeader">
-                    <h5 class="modal-title" id="modalMensagemTitulo">Aviso</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+            <div class="modal-content barber-modal-content">
+                <div id="modalMensagemHeader" class="modal-header bg-success text-white">
+                    <h5 id="modalMensagemTitulo" class="modal-title">
+                        <i class="bi bi-check-circle-fill"></i> Sucesso!
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body text-center" id="modalMensagemTexto">
-                    <!-- Mensagem será inserida aqui -->
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                    <h4 class="mt-3" id="modalMensagemTexto">Agendamento realizado com sucesso!</h4>
                 </div>
                 <div class="modal-footer justify-content-center">
-                    <button type="button" class="btn btn-primary-custom" data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-success" id="btnOkAgendamentoSucesso"
+                        data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ MODAL CONFIRMAR CANCELAMENTO -->
+    <div class="modal fade" id="modalConfirmarCancelamento" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle-fill"></i> Confirmar Cancelamento
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">Tem certeza que deseja cancelar este agendamento?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não, voltar</button>
+                    <button type="button" class="btn btn-danger" id="btnConfirmarCancelamento">
+                        Sim, cancelar agendamento
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ MODAL CANCELAMENTO COM SUCESSO -->
+    <div class="modal fade" id="modalCancelamentoSucesso" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-check-circle-fill"></i> Cancelamento Realizado
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+                    <h4 class="mt-3">Agendamento cancelado com sucesso!</h4>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ MODAL VISUALIZAR FOTO -->
+    <div class="modal fade" id="modalVisualizarFoto" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="bi bi-image"></i> Foto do Cabelo - Doação
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="imagemFotoAgendamento" src="" alt="Foto do cabelo" class="img-fluid"
+                        style="max-height: 500px;">
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -568,35 +742,8 @@
             }
         });
 
-        // Gerencia estado vazio das listas (IDs atualizados)
-        (function () {
-            function ensureEmptyState(listId, emptyIconClass, titleText, messageText) {
-                const listEl = document.getElementById(listId);
-                if (!listEl) return;
-
-                const hasItems = listEl.querySelectorAll('.Lal_agendamentoItem').length > 0;
-                const existingEmpty = listEl.querySelector('.Lal_emptyState');
-
-                if (hasItems) {
-                    if (existingEmpty) existingEmpty.remove();
-                    return;
-                }
-
-                if (!existingEmpty) {
-                    const emptyState = document.createElement('div');
-                    emptyState.className = 'Lal_emptyState';
-                    emptyState.innerHTML = `
-                    <i class="${emptyIconClass}"></i>
-                    <h4>${titleText}</h4>
-                    <p>${messageText}</p>
-                `;
-                    listEl.appendChild(emptyState);
-                }
-            }
-
-            ensureEmptyState('Lal_upcomingList', 'bi bi-calendar-x', 'Nenhum agendamento', 'Você não possui agendamentos futuros.');
-            ensureEmptyState('Lal_historyList', 'bi bi-journal-x', 'Nenhum histórico', 'Seu histórico de agendamentos aparecerá aqui.');
-        })();
+        // ✅ REMOVIDO - Gerenciamento de estado vazio (estava duplicando)
+        // A mensagem já está no HTML via Thymeleaf
 
         // ========== MODAL DE AGENDAMENTO ==========
         document.addEventListener('DOMContentLoaded', function () {
@@ -634,9 +781,9 @@
                     const reader = new FileReader();
                     reader.onload = function (e) {
                         previewImagem.innerHTML = `
-                        <img src="${e.target.result}" class="img-thumbnail" style="max-width: 200px;">
-                        <p class="mt-2 text-accent">Imagem carregada com sucesso!</p>
-                    `;
+                    <img src="${e.target.result}" class="img-thumbnail" style="max-width: 200px;">
+                    <p class="mt-2 text-accent">Imagem carregada com sucesso!</p>
+                `;
                     };
                     reader.readAsDataURL(file);
                 }
@@ -666,11 +813,11 @@
 
             servicoSelecionado.addEventListener('change', function () {
                 const opcaoSelecionada = this.options[this.selectedIndex];
-                const nomeServico = opcaoSelecionada.text;
+                const nomeServico = opcaoSelecionada.text.split(" - ")[0];
                 const preco = opcaoSelecionada.getAttribute('data-preco');
 
                 atualizarResumo('servico', nomeServico);
-                atualizarResumo('valor', `R$ ${preco},00`);
+                atualizarResumo('valor', `R$ ${preco}`);
             });
 
             // Calendário
@@ -788,10 +935,10 @@
                         const horarioBtn = document.createElement('div');
                         horarioBtn.className = 'col-3';
                         horarioBtn.innerHTML = `
-                        <div class="horario-btn" data-horario="${horario}">
-                            ${horario}
-                        </div>
-                    `;
+                    <div class="horario-btn" data-horario="${horario}">
+                        ${horario}
+                    </div>
+                `;
                         container.appendChild(horarioBtn);
                     }
                 }
@@ -849,9 +996,19 @@
                 // Mostrar modal
                 const modal = new bootstrap.Modal(modalElement);
                 modal.show();
-            }
 
-            // ...existing code (btnAgendar)...
+                // ✅ Só recarrega ao clicar em OK, se for sucesso
+                if (tipo === 'success') {
+                    const btnOk = document.getElementById('btnOkAgendamentoSucesso');
+                    if (btnOk) {
+                        // Remove qualquer evento anterior para evitar múltiplos reloads
+                        btnOk.onclick = null;
+                        btnOk.onclick = function () {
+                            window.location.reload();
+                        };
+                    }
+                }
+            }
 
             btnAgendar.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -924,10 +1081,15 @@
                                 }
                             });
                             document.getElementById('resumoDoador').textContent = 'Não';
-                            document.getElementById('resumoValor').textContent = 'R$ 0,00';
+                            document.getElementById('resumoValor').textContent = 'R$';
 
                             // MOSTRAR MENSAGEM DE SUCESSO
                             mostrarMensagem('Agendamento realizado com sucesso!', 'success');
+
+                            // ✅ RECARREGAR PÁGINA APÓS 1.5 SEGUNDOS (tempo para ver a mensagem)
+                            //setTimeout(() => {
+                            //   window.location.reload();
+                            //}, 1500);
 
                         } else {
                             mostrarMensagem('Erro ao criar agendamento. Tente novamente.', 'danger');
@@ -960,6 +1122,90 @@
             }
 
             new bootstrap.Modal(document.getElementById('detalhesBarbeiroModal')).show();
+        });
+
+        let agendamentoIdParaCancelar = null;
+
+        // ✅ ABRIR MODAL DE CANCELAMENTO
+        function abrirModalCancelar(botao) {
+            agendamentoIdParaCancelar = botao.getAttribute('data-agendamento-id');
+            const modal = new bootstrap.Modal(document.getElementById('modalConfirmarCancelamento'));
+            modal.show();
+        }
+
+        // ✅ CONFIRMAR CANCELAMENTO
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
+
+            if (btnConfirmar) {
+                btnConfirmar.addEventListener('click', function () {
+                    if (!agendamentoIdParaCancelar) return;
+
+                    // ✅ CRIAR FORMULÁRIO PARA ENVIAR POST (igual o Controller espera)
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/cancelarAgendamento';
+
+                    const inputId = document.createElement('input');
+                    inputId.type = 'hidden';
+                    inputId.name = 'id';
+                    inputId.value = agendamentoIdParaCancelar;
+
+                    form.appendChild(inputId);
+                    document.body.appendChild(form);
+                    form.submit();
+                });
+            }
+
+            // ✅ VERIFICAR SE FOI CANCELADO COM SUCESSO
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('cancelled') === 'true') {
+                mostrarMensagem('Agendamento cancelado com sucesso!', 'success');
+                window.history.replaceState({}, document.title, '/agendamento');
+            }
+        });
+
+        function visualizarFoto(botao) {
+            const fotoUrl = botao.getAttribute('data-foto');
+            document.getElementById('imagemFotoAgendamento').src = fotoUrl;
+            const modal = new bootstrap.Modal(document.getElementById('modalVisualizarFoto'));
+            modal.show();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const btnConfirmar = document.getElementById('btnConfirmarCancelamento');
+
+            if (btnConfirmar) {
+                btnConfirmar.addEventListener('click', function () {
+                    if (!agendamentoIdParaCancelar) return;
+
+                    // ✅ CRIAR FORMULÁRIO PARA ENVIAR POST (igual o Controller espera)
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '/cancelarAgendamento';
+
+                    const inputId = document.createElement('input');
+                    inputId.type = 'hidden';
+                    inputId.name = 'id';
+                    inputId.value = agendamentoIdParaCancelar;
+
+                    form.appendChild(inputId);
+                    document.body.appendChild(form);
+                    form.submit();
+                });
+            }
+
+            // ✅ VERIFICAR SE FOI CANCELADO COM SUCESSO E MOSTRAR MODAL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('cancelled') === 'true') {
+                const modal = new bootstrap.Modal(document.getElementById('modalCancelamentoSucesso'));
+                modal.show();
+
+                // Limpar URL após mostrar modal
+                modal._element.addEventListener('hidden.bs.modal', function () {
+                    window.history.replaceState({}, document.title, '/agendamento');
+                }, { once: true });
+            }
         });
     </script>
 

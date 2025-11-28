@@ -1,4 +1,4 @@
-*{
+* {
     font-family: 'Montserrat', sans-serif !important;
 }
 
@@ -33,7 +33,7 @@ body {
     padding: 20px;
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .Lal_profileHeader {
@@ -49,7 +49,7 @@ body {
     object-fit: cover;
     margin-right: 20px;
     border: 3px solid var(--primary-color);
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 .Lal_profileInfo h1 {
@@ -91,7 +91,7 @@ body {
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(124, 106, 106, 0.2);
 }
 
@@ -150,22 +150,92 @@ body {
 }
 
 .Lal_agendamentoStatus {
+    display: flex;
+    flex-direction: column;
+    /* empilha status e botão verticalmente */
+    align-items: flex-end;
+    /* alinha à direita (mantém estética atual) */
+    gap: 8px;
+    /* espaço entre badge e botão */
     padding: 6px 12px;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
+    min-width: 120px;
+    /* evita que o conteúdo quebre desnecessariamente */
 }
 
-.status-pendente {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: #ffc107;
-    border: 1px solid rgba(255, 193, 7, 0.3);
+/* força o badge a ter aparência consistente */
+.Lal_statusBadge {
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
 }
 
-.status-concluido {
-    background-color: rgba(40, 167, 69, 0.2);
-    color: #28a745;
-    border: 1px solid rgba(40, 167, 69, 0.3);
+/* Botão cancelar dentro do bloco de status (mantém estilo bootstrap, só espaça) */
+.Lal_agendamentoStatus .btn {
+    margin-top: 6px;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+}
+
+/* cores/estados específicos (nomes usados nos templates via th:classappend) */
+.Lal_statusConfirmado {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: rgba(184, 181, 29, 0.12);
+    color: #ffd766;
+    border: 1px solid rgba(255, 193, 7, 0.25);
+}
+
+.Lal_statusConcluido {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: rgba(40, 167, 69, 0.12);
+    color: #9be3a6;
+    border: 1px solid rgba(40, 167, 69, 0.25);
+}
+
+/* ATENÇÃO: quando o status for "Cancelado" (classe adicionada no histórico),
+   deixamos o fundo vermelho e texto claro para contraste */
+.Lal_statusCancelado {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: rgba(220, 53, 69, 0.14);
+    /* vermelho suave de fundo */
+    color: #ffdddd;
+    /* texto claro */
+    border: 1px solid rgba(220, 53, 69, 0.28);
+    /* borda vermelha */
+}
+
+/* pequeno ajuste responsivo para telas muito estreitas */
+@media (max-width: 520px) {
+    .Lal_agendamentoItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .Lal_agendamentoStatus {
+        align-items: flex-start;
+        /* em mobile, alinhamos à esquerda para legibilidade */
+    }
 }
 
 /* botão agendar renomeado */
@@ -243,15 +313,17 @@ body {
 
 /* Modal com fundo sólido (não-transparente) - mantive como antes */
 .modal-content {
-    background-color: var(--secondary-color); /* cor sólida do modal */
+    background-color: var(--secondary-color);
+    /* cor sólida do modal */
     color: var(--text-color);
     border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.04);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* Form controls dentro do modal (mantive nomes originais) */
-.form-control, .form-select {
+.form-control,
+.form-select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(124, 106, 106, 0.3);
     color: var(--text-color);
@@ -260,19 +332,25 @@ body {
 /* PLACEHOLDERS: visíveis em branco */
 .form-control::placeholder {
     color: #ffffff;
-    opacity: 1; /* garantir visibilidade */
+    opacity: 1;
+    /* garantir visibilidade */
 }
-.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+
+.form-control:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #ffffff;
     opacity: 1;
 }
-.form-control::-ms-input-placeholder { /* Microsoft Edge */
+
+.form-control::-ms-input-placeholder {
+    /* Microsoft Edge */
     color: #ffffff;
     opacity: 1;
 }
 
 /* foco */
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     background: rgba(255, 255, 255, 0.1);
     border-color: var(--primary-color);
     color: var(--text-color);
@@ -292,10 +370,101 @@ body {
     border: 3px solid var(--primary-color);
     margin: 0 auto 15px;
     display: block;
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
 }
 
 /* espaço para listas vazias (renomeado) */
 .Lal_agendamentosList {
     min-height: 60px;
+}
+
+/* Ações lado-a-lado (mantém badge acima) */
+.Lal_statusActions {
+    display: inline-flex;
+    gap: 8px;
+    margin-top: 6px;
+    /* espaço entre badge e botões */
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* botão 'Ver Foto' marrom no estilo do sistema (pequeno) */
+/* === BOTÃO VER FOTO — IGUAL AO CANCELAR, MAS MARROM === */
+.Lal_btnFoto {
+    border: 1px solid var(--primary-color);
+    /* mesma espessura do outline */
+    color: var(--primary-color);
+    /* texto e ícone marrom */
+    background-color: transparent;
+    /* estilo outline */
+    border-radius: 0.25rem;
+    /* igual ao bootstrap */
+    padding: 0.25rem 0.5rem;
+    /* igual ao btn-sm */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    /* separação ícone/texto */
+    font-size: 0.875rem;
+    /* igual ao btn-sm */
+    transition: all .15s ease;
+    /* mesmo efeito */
+}
+
+/* Hover igual ao btn-outline-danger, só que marrom */
+.Lal_btnFoto:hover {
+    background-color: var(--primary-color);
+    color: white;
+    /* texto branco igual ao hover padrão */
+    border-color: var(--primary-color);
+}
+
+/* Ícone mantém o mesmo comportamento */
+.Lal_btnFoto i {
+    font-size: 1rem;
+}
+
+
+/* diminui margem-top padrão do bootstrap (já que os botões agora ficam na mesma linha) */
+.Lal_agendamentoStatus .btn {
+    margin-top: 0 !important;
+}
+
+/* DOADOR ao lado da data/hora */
+.Lal_doadorTag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 12px;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    opacity: 0.95;
+}
+
+/* Ícone de coração ajustado: tom marrom/avermelhado */
+.Lal_doadorTag .bi-heart-fill {
+    color: #c84b4b;
+    /* vermelho mais terroso para contraste */
+    font-size: 0.95rem;
+}
+
+/* texto do doador em estilo pequeno e sutil */
+.Lal_doadorText {
+    font-size: 0.82rem;
+    color: var(--accent-color);
+}
+
+/* responsividade: se a tela ficar estreita, empilha badge e actions à esquerda */
+@media (max-width: 520px) {
+    .Lal_statusActions {
+        justify-content: flex-start;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .Lal_doadorTag {
+        display: block;
+        margin-left: 0;
+        margin-top: 6px;
+    }
 }

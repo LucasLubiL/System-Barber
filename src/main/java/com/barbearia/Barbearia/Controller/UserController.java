@@ -1,6 +1,7 @@
 package com.barbearia.Barbearia.Controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,8 +22,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
+import java.util.List;
 import java.io.IOException;
 
+import com.barbearia.Barbearia.Model.Agendamento;
 import com.barbearia.Barbearia.Model.Barbeiro;
 import com.barbearia.Barbearia.Model.RegisterUser;
 import com.barbearia.Barbearia.Model.User;
@@ -51,6 +54,9 @@ public class UserController {
 
     @Autowired
     private ServicoService servicoService;
+
+    @Autowired
+    private AgendamentoService agendamentoService;
 
     @GetMapping("/")
     public String root() {
@@ -178,6 +184,7 @@ public class UserController {
     @GetMapping("/agendamento")
     public String redirectAgendamento(@AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(required = false) String success,
+            @RequestParam(required = false) String data,
             Model model) {
 
         if (userDetails == null) {
@@ -193,10 +200,17 @@ public class UserController {
             Barbeiro barbeiro = barbeiroService.findBarbeiroByEmail(userDetails.getUsername());
             model.addAttribute("barbeiro", barbeiro);
 
-            // CARREGA TODOS OS DADOS PARA OS MODAIS
             model.addAttribute("instituicoes", instituicaoService.getAllInstituicoes());
             model.addAttribute("barbeiros", barbeiroService.getAllBarbeiros());
             model.addAttribute("servicos", servicoService.getAllServicos());
+
+            LocalDate dataSelecionada = (data != null) ? LocalDate.parse(data) : LocalDate.now();
+            List<Agendamento> agendamentos = agendamentoService.listarAgendamentosPorBarbeiroEData(
+                    barbeiro.getId(),
+                    dataSelecionada);
+
+            model.addAttribute("agendamentos", agendamentos);
+            model.addAttribute("dataSelecionada", dataSelecionada);
 
             String primeiroNome = barbeiro.getNomeCompleto().split(" ")[0];
             model.addAttribute("userName", primeiroNome);
@@ -211,6 +225,10 @@ public class UserController {
             // CARREGA DADOS PARA OS MODAIS DO CLIENTE TAMBÉM
             model.addAttribute("barbeiros", barbeiroService.getAllBarbeiros());
             model.addAttribute("servicos", servicoService.getAllServicos());
+
+            // ✅ BUSCAR AGENDAMENTOS DO CLIENTE
+            List<Agendamento> agendamentos = agendamentoService.listarAgendamentosPorEmail(userDetails.getUsername());
+            model.addAttribute("agendamentos", agendamentos);
 
             String primeiroNome = registerUser.getNomeCompleto().split(" ")[0];
             model.addAttribute("userName", primeiroNome);

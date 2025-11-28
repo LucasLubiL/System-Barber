@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.barbearia.Barbearia.Model.Agendamento;
 import com.barbearia.Barbearia.service.AgendamentoService;
 
 @Controller
@@ -56,6 +57,12 @@ public class AgendamentoController {
     public String cancelarAgendamento(@RequestParam Long id) {
         agendamentoService.cancelarAgendamento(id);
         return "redirect:/agendamento?cancelled=true";
+    }
+
+    @GetMapping("/agendamento/concluir")
+    public String concluirAgendamento(@RequestParam Long id) {
+        agendamentoService.concluirAgendamento(id);
+        return "redirect:/agendamento?concluded=true";
     }
 
     // ✅ TESTE: Adicione isso temporariamente

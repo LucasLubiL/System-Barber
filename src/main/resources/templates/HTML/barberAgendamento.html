@@ -26,8 +26,7 @@
                 <img th:if="${barbeiro.foto != null}" th:src="@{${barbeiro.foto}}" alt="Barbeiro" class="barber-img"
                     id="header-barber-img">
 
-                <img th:if="${barbeiro.foto == null}"
-                    alt="Barbeiro" class="barber-img" id="header-barber-img">
+                <img th:if="${barbeiro.foto == null}" alt="Barbeiro" class="barber-img" id="header-barber-img">
 
                 <div class="barber-info">
                     <h1><span th:text="${barbeiro.nomeCompleto}"></span> - Barbeiro</h1>
@@ -38,7 +37,8 @@
             <div class="barber-head-actions">
                 <div class="barber-date-selector">
                     <i class="bi bi-calendar"></i>
-                    <input type="date" id="data-selecionada" value="2023-10-16">
+                    <input type="date" id="data-selecionada" th:value="${dataSelecionada}"
+                        onchange="window.location.href='/agendamento?data=' + this.value">
                 </div>
                 <!-- EDIT: botão agora é BUTTON e usa a mesma classe visual -->
                 <button type="button" class="barber-btn-primary" data-bs-toggle="modal"
@@ -54,42 +54,174 @@
                 <h2 class="barber-section-title"><i class="bi bi-calendar-check"></i> Agenda do Dia</h2>
 
                 <div class="barber-filters">
-                    <button class="barber-filter-btn active">Todos</button>
-                    <button class="barber-filter-btn">Confirmados</button>
-                    <button class="barber-filter-btn">Concluídos</button>
-                    <button class="barber-filter-btn">Cancelados</button>
+                    <button class="barber-filter-btn active" data-filter="todos">Todos</button>
+                    <button class="barber-filter-btn" data-filter="Confirmado">Confirmados</button>
+                    <button class="barber-filter-btn" data-filter="Concluido">Concluídos</button>
+                    <button class="barber-filter-btn" data-filter="Cancelado">Cancelados</button>
                 </div>
 
                 <div id="barber-agendamentosAtivos">
-                    <div class="barber-agendamento-item">
-                        <div class="barber-agendamento-info">
-                            <h3>Carlos Silva</h3>
-                            <p class="meta"><i class="bi bi-clock"></i> 09:00 - <strong class="value">Corte de
-                                    Cabelo</strong> - <span class="price">R$ 35,00</span></p>
-                            <p class="meta"><i class="bi bi-telephone"></i> (11) 99999-9999</p>
-                        </div>
-                        <div class="barber-actions d-flex align-items-center gap-2">
-                            <span class="barber-status barber-status-confirmado">Confirmado</span>
-                            <button class="barber-outline barber-concluir">Concluir</button>
-                            <button class="barber-outline barber-cancelar">Cancelar</button>
-                        </div>
+                    <!-- ✅ MENSAGEM SE VAZIO -->
+                    <div style="color: #7c6a6a;" th:if="${#lists.isEmpty(agendamentos)}"
+                        class="text-center text-muted py-4">
+                        <i class="bi bi-calendar-x" style="font-size: 3rem; color: #7c6a6a;"></i>
+                        <p class="mt-2" style="color: #7c6a6a;">Nenhum agendamento para esta data.</p>
                     </div>
 
-                    <div class="barber-agendamento-item">
-                        <div class="barber-agendamento-info">
-                            <h3>Marcos Oliveira</h3>
-                            <p class="meta"><i class="bi bi-clock"></i> 10:30 - <strong class="value">Barba</strong> -
-                                <span class="price">R$ 25,00</span>
-                            </p>
-                            <p class="meta"><i class="bi bi-telephone"></i> (11) 98888-8888</p>
+                    <!-- ✅ RENDERIZAR AGENDAMENTOS -->
+                    <div th:each="agendamento : ${agendamentos}" class="barber-agendamento-item"
+                        th:attr="data-status=${agendamento.status}">
+
+                        <!-- Container principal: foto + info -->
+                        <div class="barber-agendamento-main">
+                            <!-- ✅ FOTO DO CLIENTE -->
+                            <div class="barber-cliente-foto">
+                                <img th:if="${agendamento.cliente.foto != null}" th:src="@{${agendamento.cliente.foto}}"
+                                    alt="Foto do cliente">
+                                <div th:if="${agendamento.cliente.foto == null}"
+                                    class="barber-cliente-foto-placeholder">
+                                    <i class="bi bi-person" style="font-size: 2rem; color: #999;"></i>
+                                </div>
+                            </div>
+
+                            <!-- ✅ INFORMAÇÕES DO AGENDAMENTO -->
+                            <div class="barber-agendamento-info">
+                                <h3 th:text="${agendamento.cliente.nomeCompleto}">Nome do Cliente</h3>
+
+                                <!-- ✅ SERVIÇO E VALOR PRIMEIRO -->
+                                <p class="meta">
+                                    <i class="bi bi-scissors"></i>
+                                    <strong class="value" th:text="${agendamento.servico}">Serviço</strong>
+                                    -
+                                    <span class="price"
+                                        th:text="'R$ ' + ${#numbers.formatDecimal(agendamento.valor, 1, 2)}">R$
+                                        35,00</span>
+                                </p>
+
+                                <!-- ✅ HORA DEPOIS -->
+                                <p class="meta">
+                                    <i class="bi bi-clock"></i>
+                                    <span th:text="${#temporals.format(agendamento.hora, 'HH:mm')}">14:00</span>
+                                </p>
+
+                                <p class="meta">
+                                    <i class="bi bi-telephone"></i>
+                                    <span th:text="${agendamento.cliente.telefone}">(11) 99999-9999</span>
+                                </p>
+
+                                <!-- ✅ TAG DOADOR -->
+                                <p class="meta" th:if="${agendamento.doador}">
+                                    <span class="barber-doador-tag">
+                                        <i class="bi bi-heart-fill"></i>
+                                        Doador de cabelo
+                                    </span>
+                                </p>
+                            </div>
+
                         </div>
-                        <div class="barber-actions d-flex align-items-center gap-2">
-                            <span class="barber-status barber-status-confirmado">Confirmado</span>
-                            <button class="barber-outline barber-concluir">Concluir</button>
-                            <button class="barber-outline barber-cancelar">Cancelar</button>
+
+                        <!-- ✅ STATUS E AÇÕES -->
+                        <div class="barber-agendamento-status-container">
+                            <!-- Badge de status -->
+                            <span class="barber-status"
+                                th:classappend="${agendamento.status == 'Confirmado' ? 'barber-status-confirmado' : 
+                                  (agendamento.status == 'Cancelado' ? 'barber-status-cancelado' : 'barber-status-concluido')}"
+                                th:text="${agendamento.status}">
+                                Confirmado
+                            </span>
+
+                            <!-- Botões de ação -->
+                            <div class="barber-status-actions">
+                                <!-- ✅ BOTÃO VER FOTO (se for doador e tiver foto) -->
+                                <button th:if="${agendamento.doador and agendamento.foto != null}"
+                                    class="barber-btn-action barber-btn-foto" onclick="visualizarFotoBarbeiro(this)"
+                                    th:attr="data-foto=${agendamento.foto}">
+                                    <i class="bi bi-image"></i> Ver Foto
+                                </button>
+
+                                <!-- ✅ BOTÃO CONCLUIR (apenas se confirmado) -->
+                                <button th:if="${agendamento.status == 'Confirmado'}"
+                                    class="barber-btn-action barber-btn-concluir barber-concluir"
+                                    th:attr="data-id=${agendamento.id}">
+                                    <i class="bi bi-check-circle"></i> Concluir
+                                </button>
+
+                                <!-- ✅ BOTÃO CANCELAR (apenas se confirmado) -->
+                                <button th:if="${agendamento.status == 'Confirmado'}"
+                                    class="barber-btn-action barber-btn-cancelar barber-cancelar"
+                                    th:attr="data-id=${agendamento.id}">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <!-- ✅ MODAL CONFIRMAR CANCELAMENTO -->
+            <div class="modal fade" id="modalConfirmarCancelamento" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content barber-modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title">
+                                <i class="bi bi-exclamation-triangle-fill"></i> Confirmar Cancelamento
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0">Tem certeza que deseja cancelar este agendamento?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não, voltar</button>
+                            <button type="button" class="btn btn-danger" id="btnConfirmarCancelamento">
+                                Sim, cancelar agendamento
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ MODAL CONFIRMAR CONCLUSÃO -->
+            <div class="modal fade" id="modalConfirmarConclusao" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content barber-modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title">
+                                <i class="bi bi-check-circle-fill"></i> Confirmar Conclusão
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="mb-0">Tem certeza que deseja marcar este agendamento como concluído?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não, voltar</button>
+                            <button type="button" class="btn btn-success" id="btnConfirmarConclusao">
+                                Sim, marcar como concluído
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ✅ MODAL VISUALIZAR FOTO BARBEIRO -->
+            <div class="modal fade" id="modalVisualizarFotoBarbeiro" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content barber-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i class="bi bi-image"></i> Foto do Cabelo - Doação
+                            </h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img id="imagemFotoBarbeiro" src="" alt="Foto do cabelo" class="img-fluid"
+                                style="max-height: 500px;">
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -283,7 +415,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Verifica se tem serviços -->
-                    <div style="color: white !important;" th:if="${#lists.isEmpty(servicos)}" class="text-center text-muted py-4">
+                    <div style="color: white !important;" th:if="${#lists.isEmpty(servicos)}"
+                        class="text-center text-muted py-4">
                         Nenhum serviço cadastrado ainda.
                     </div>
 
@@ -332,12 +465,12 @@
                     <input type="hidden" id="servicoId" name="id">
                     <div class="modal-body">
                         <label for="servicoNome" class="form-label">Nome</label>
-                        <input style="color: white !important;" type="text" id="servicoNome" name="nomeServico" class="form-control"
-                             required>
+                        <input style="color: white !important;" type="text" id="servicoNome" name="nomeServico"
+                            class="form-control" required>
 
                         <label for="servicoValor" class="form-label mt-2">Valor (R$)</label>
-                        <input style="color: white !important;" type="number" id="servicoValor" name="valor" step="0.01" class="form-control"
-                             required>
+                        <input style="color: white !important;" type="number" id="servicoValor" name="valor" step="0.01"
+                            class="form-control" required>
                     </div>
                     <div class="modal-footer barber-modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -358,7 +491,8 @@
 
                 <div class="modal-body">
                     <!-- Verifica se tem ONGs -->
-                    <div style="color: white !important;" th:if="${#lists.isEmpty(instituicoes)}" class="text-center text-muted py-4">
+                    <div style="color: white !important;" th:if="${#lists.isEmpty(instituicoes)}"
+                        class="text-center text-muted py-4">
                         Nenhuma ONG cadastrada ainda.
                     </div>
 
@@ -679,6 +813,69 @@
         </div>
     </div>
 
+    <!-- Modal de Sucesso - Agendamento Cancelado -->
+    <div class="modal fade" id="modalAgendamentoCancelado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h1 class="modal-title fs-5">
+                        <i class="bi bi-x-circle-fill me-2"></i>Agendamento Cancelado!
+                    </h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-x-circle text-danger" style="font-size: 4rem;"></i>
+                    <h4 class="mt-3">O agendamento foi cancelado com sucesso!</h4>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-danger" id="btnOkAgendamentoCancelado"
+                        data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso - Agendamento Concluído -->
+    <div class="modal fade" id="modalAgendamentoConcluido" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h1 class="modal-title fs-5">
+                        <i class="bi bi-check-circle-fill me-2"></i>Agendamento Concluído!
+                    </h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+                    <h4 class="mt-3">O agendamento foi concluído com sucesso!</h4>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" id="btnOkAgendamentoConcluido"
+                        data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
 
     <!-- JS: Bootstrap (uma vez) -->
@@ -778,31 +975,6 @@
                 btnConfirmarExclusao.addEventListener('click', () => {
                     if (servicoIdParaExcluir) {
                         window.location.href = '/servico/delete?id=' + servicoIdParaExcluir;
-                    }
-                });
-            }
-
-            // ---------- FILTROS DE AGENDAMENTO ----------
-            document.querySelectorAll('.barber-filter-btn').forEach(btn => {
-                btn.addEventListener('click', evt => {
-                    document.querySelectorAll('.barber-filter-btn').forEach(x => x.classList.remove('active'));
-                    evt.currentTarget.classList.add('active');
-                });
-            });
-
-            // ---------- CONCLUIR/CANCELAR AGENDAMENTOS ----------
-            const agendamentos = document.getElementById('barber-agendamentosAtivos');
-            if (agendamentos) {
-                agendamentos.addEventListener('click', e => {
-                    const status = e.target.closest('.barber-agendamento-item')?.querySelector('.barber-status');
-                    if (!status) return;
-
-                    if (e.target.closest('.barber-concluir')) {
-                        status.textContent = 'Concluído';
-                        status.className = 'barber-status barber-status-concluido';
-                    } else if (e.target.closest('.barber-cancelar')) {
-                        status.textContent = 'Cancelado';
-                        status.className = 'barber-status barber-status-cancelado';
                     }
                 });
             }
@@ -932,6 +1104,106 @@
 
                 window.history.replaceState({}, document.title, window.location.pathname);
             }
+
+            // ✅ Modal de sucesso ao cancelar agendamento
+            if (urlParams.get('cancelled') === 'true') {
+                const modal = new bootstrap.Modal(document.getElementById('modalAgendamentoCancelado'));
+                modal.show();
+                document.getElementById('modalAgendamentoCancelado').addEventListener('hidden.bs.modal', function () {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    window.location.reload();
+                }, { once: true });
+            }
+
+            // ✅ Modal de sucesso ao concluir agendamento
+            if (urlParams.get('concluded') === 'true') {
+                const modal = new bootstrap.Modal(document.getElementById('modalAgendamentoConcluido'));
+                modal.show();
+                document.getElementById('modalAgendamentoConcluido').addEventListener('hidden.bs.modal', function () {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                    window.location.reload();
+                }, { once: true });
+            }
+
+            // ✅ VISUALIZAR FOTO
+            window.visualizarFotoBarbeiro = function (botao) {
+                const fotoUrl = botao.getAttribute('data-foto');
+                document.getElementById('imagemFotoBarbeiro').src = fotoUrl;
+                const modal = new bootstrap.Modal(document.getElementById('modalVisualizarFotoBarbeiro'));
+                modal.show();
+            };
+
+            // ✅ FILTROS DE AGENDAMENTO
+            document.querySelectorAll('.barber-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.barber-filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+                    const items = document.querySelectorAll('.barber-agendamento-item');
+
+                    items.forEach(item => {
+                        if (filter === 'todos') {
+                            item.style.display = 'flex';
+                        } else {
+                            const status = item.getAttribute('data-status');
+                            item.style.display = (status === filter) ? 'flex' : 'none';
+                        }
+                    });
+                });
+            });
+
+            // ✅ CONCLUIR/CANCELAR AGENDAMENTOS
+            let agendamentoIdParaCancelar = null;
+            let agendamentoIdParaConcluir = null;
+
+            document.addEventListener('click', function (e) {
+                // CONCLUIR
+                if (e.target.closest('.barber-concluir')) {
+                    agendamentoIdParaConcluir = e.target.closest('.barber-concluir').getAttribute('data-id');
+                    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarConclusao'));
+                    modal.show();
+                }
+
+                // CANCELAR
+                if (e.target.closest('.barber-cancelar')) {
+                    agendamentoIdParaCancelar = e.target.closest('.barber-cancelar').getAttribute('data-id');
+                    const modal = new bootstrap.Modal(document.getElementById('modalConfirmarCancelamento'));
+                    modal.show();
+                }
+            });
+
+            const btnConfirmarConclusao = document.getElementById('btnConfirmarConclusao');
+            if (btnConfirmarConclusao) {
+                btnConfirmarConclusao.addEventListener('click', function () {
+                    if (agendamentoIdParaConcluir) {
+                        window.location.href = `/agendamento/concluir?id=${agendamentoIdParaConcluir}`;
+                    }
+                });
+            }
+
+            // ✅ CONFIRMAR CANCELAMENTO (USAR POST)
+            const btnConfirmarCancelamento = document.getElementById('btnConfirmarCancelamento');
+            if (btnConfirmarCancelamento) {
+                btnConfirmarCancelamento.addEventListener('click', function () {
+                    if (agendamentoIdParaCancelar) {
+                        // Criar formulário POST
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = '/cancelarAgendamento';
+
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'id';
+                        input.value = agendamentoIdParaCancelar;
+
+                        form.appendChild(input);
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
+                });
+            }
+
 
         })();
     </script>

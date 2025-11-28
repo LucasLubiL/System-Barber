@@ -109,4 +109,30 @@ public class AgendamentoServiceImpl implements AgendamentoService {
         agendamentoRepository.save(agendamento);
     }
 
+    @Override
+    public void concluirAgendamento(Long id) {
+        Agendamento agendamento = agendamentoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado"));
+
+        agendamento.setStatus("Concluido");
+        agendamentoRepository.save(agendamento);
+    }
+
+    @Override
+    public List<Agendamento> listarAgendamentosPorEmail(String email) {
+        RegisterUser cliente = registerUserRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        return agendamentoRepository.findByClienteId(cliente.getId());
+    }
+
+    @Override
+    public List<Agendamento> listarAgendamentosPorBarbeiro(Long barbeiroId) {
+        return agendamentoRepository.findByBarbeiroId(barbeiroId);
+    }
+
+    @Override
+    public List<Agendamento> listarAgendamentosPorBarbeiroEData(Long barbeiroId, LocalDate data) {
+        return agendamentoRepository.findByBarbeiroIdAndData(barbeiroId, data);
+    }
+
 }

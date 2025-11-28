@@ -35,13 +35,17 @@ public class SecurityConfig {
                                                 "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**")
                                 .permitAll()
 
-                                // PÁGINAS PARA CLIENTES (ROLE_CLIENT)
-                                .requestMatchers("/cliente/**", "/agendamentoClient/**",
-                                                "/saveAgendamento", "/cancelarAgendamento")
+                                // ✅ ROTAS COMPARTILHADAS (CLIENTE E BARBEIRO) - DEVEM VIR ANTES
+                                .requestMatchers("/cancelarAgendamento", "/agendamento/concluir")
+                                .hasAnyAuthority("ROLE_CLIENT", "ROLE_BARBER")
+
+                                // PÁGINAS PARA CLIENTES (ROLE_CLIENT) - SEM /cancelarAgendamento
+                                .requestMatchers("/cliente/**", "/agendamentoClient/**", "/saveAgendamento")
                                 .hasAuthority("ROLE_CLIENT")
 
                                 // PÁGINAS PARA BARBEIROS (ROLE_BARBER)
-                                .requestMatchers("/barbeiro/**", "/agendamentoBarber/**").hasAuthority("ROLE_BARBER")
+                                .requestMatchers("/barbeiro/**", "/agendamentoBarber/**")
+                                .hasAuthority("ROLE_BARBER")
 
                                 // PÁGINAS PARA ADMIN (ROLE_ADMIN)
                                 .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
@@ -49,13 +53,9 @@ public class SecurityConfig {
                                 // QUALQUER OUTRA ROTA EXIGE AUTENTICAÇÃO
                                 .anyRequest().authenticated())
 
-                                // ...existing code...
-
                                 .csrf(csrf -> csrf
                                                 .ignoringRequestMatchers("/instituicao/save", "/saveAgendamento",
-                                                                "/cancelarAgendamento"))
-
-                                // ...existing code...
+                                                                "/cancelarAgendamento", "/agendamento/concluir"))
 
                                 .formLogin(login -> login
                                                 .loginPage("/login")

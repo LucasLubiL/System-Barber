@@ -1,5 +1,6 @@
 package com.barbearia.Barbearia.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -14,8 +15,17 @@ public interface AgendamentoService {
 
     List<Agendamento> listarAgendamentosPorCliente(Long clienteId);
 
+    List<Agendamento> listarAgendamentosPorEmail(String email);
+
     Agendamento buscarPorId(Long id);
 
     void cancelarAgendamento(Long id);
+
+    void concluirAgendamento(Long id);
+
+    List<Agendamento> listarAgendamentosPorBarbeiro(Long barbeiroId);
+    
+    List<Agendamento> listarAgendamentosPorBarbeiroEData(Long barbeiroId, LocalDate data);
+
 
 }

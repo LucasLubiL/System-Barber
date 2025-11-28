@@ -194,34 +194,62 @@ body {
 
 /* status */
 .barber-status {
-    padding: 6px 12px;
+    padding: 8px 16px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
+    text-align: center;
+    min-width: 110px;
 }
 
+
+
+/* ✅ Status Confirmado - AMARELO */
 .barber-status-confirmado {
-    background-color: rgba(40, 167, 69, 0.2);
-    color: #28a745;
-    border: 1px solid rgba(40, 167, 69, 0.3);
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: rgba(184, 181, 29, 0.12);
+    color: #ffd766;
+    border: 1px solid rgba(255, 193, 7, 0.25);
 }
 
+/* Status Pendente - LARANJA */
 .barber-status-pendente {
-    background-color: rgba(255, 193, 7, 0.2);
-    color: #ffc107;
-    border: 1px solid rgba(255, 193, 7, 0.3);
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: #fd7e14;
+    color: white;
 }
 
+/* ✅ Status Concluído - VERDE */
 .barber-status-concluido {
-    background-color: rgba(108, 117, 125, 0.2);
-    color: #6c757d;
-    border: 1px solid rgba(108, 117, 125, 0.3);
+    display: inline-block;
+    padding: 8px 8px;
+    border-radius: 12px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 88px;
+    background-color: rgba(40, 167, 69, 0.12);
+    color: #9be3a6;
+    border: 1px solid rgba(40, 167, 69, 0.25);
 }
 
+/* ✅ Status Cancelado - VERMELHO */
 .barber-status-cancelado {
-    background-color: rgba(220, 53, 69, 0.2);
-    color: #dc3545;
-    border: 1px solid rgba(220, 53, 69, 0.3);
+    background-color: rgba(220, 53, 69, 0.14);
+    /* vermelho suave de fundo */
+    color: #ffdddd;
+    /* texto claro */
+    border: 1px solid rgba(220, 53, 69, 0.28);
+    /* borda vermelha */
 }
 
 .barber-outline {
@@ -745,3 +773,216 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* ...existing code... */
+
+/* === ESTILO DOS AGENDAMENTOS (IGUAL AO CLIENTE) === */
+
+.barber-agendamento-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid rgba(124, 106, 106, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.barber-agendamento-item:hover {
+    background: rgba(124, 106, 106, 0.08);
+    transform: translateY(-2px);
+}
+
+.barber-agendamento-item:last-child {
+    border-bottom: none;
+}
+
+/* Container principal com foto + info */
+.barber-agendamento-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+}
+
+/* Foto do cliente */
+.barber-cliente-foto {
+    flex-shrink: 0;
+}
+
+.barber-cliente-foto img,
+.barber-cliente-foto-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.barber-cliente-foto-placeholder {
+    background: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Info do agendamento */
+.barber-agendamento-info {
+    flex: 1;
+}
+
+.barber-agendamento-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.barber-agendamento-info .meta {
+    margin: 5px 0;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.barber-agendamento-info .meta i {
+    color: var(--primary-color);
+}
+
+.barber-agendamento-info .value {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.barber-agendamento-info .price {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Tag doador */
+.barber-doador-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #ff6b6b;
+}
+
+.barber-doador-tag i {
+    color: #ff6b6b;
+}
+
+/* Container de status e ações */
+.barber-agendamento-status-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    min-width: 140px;
+}
+
+/* Badge de status */
+.barber-status {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 110px;
+}
+
+/* Ações (botões) */
+.barber-status-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* Botões de ação */
+.barber-btn-action {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.barber-btn-action:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Botão concluir (verde) */
+.barber-btn-concluir {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.barber-btn-concluir:hover {
+    background: #28a745;
+    color: white;
+}
+
+/* Botão cancelar (vermelho) */
+.barber-btn-cancelar {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.barber-btn-cancelar:hover {
+    background: #dc3545;
+    color: white;
+}
+
+/* Botão ver foto (azul) */
+.barber-btn-foto {
+    border-color: #7c6a6a;
+    color: #7c6a6a;
+}
+
+.barber-btn-foto:hover {
+    background: #7c6a6a;
+    color: white;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .barber-agendamento-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .barber-agendamento-main {
+        width: 100%;
+    }
+
+    .barber-agendamento-status-container {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .barber-status-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .barber-status {
+        width: 100%;
+    }
+}
+
+/* ...existing code... */
