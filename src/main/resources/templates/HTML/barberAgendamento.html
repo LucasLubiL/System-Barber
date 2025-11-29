@@ -30,7 +30,6 @@
 
                 <div class="barber-info">
                     <h1><span th:text="${barbeiro.nomeCompleto}"></span> - Barbeiro</h1>
-                    <p><i class="bi bi-calendar-event"></i> Segunda-feira, 16 de Outubro de 2023</p>
                 </div>
             </div>
 
@@ -230,12 +229,12 @@
                 <h2 class="barber-section-title"><i class="bi bi-graph-up"></i> Resumo do Dia</h2>
 
                 <div class="barber-stat-card">
-                    <div class="barber-stat-number">2</div>
+                    <div class="barber-stat-number"  th:text="${#lists.size(agendamentos)}">0</div>
                     <div class="barber-stat-label">Agendamentos</div>
                 </div>
 
                 <div class="barber-stat-card">
-                    <div class="barber-stat-number">R$ 60,00</div>
+                    <div class="barber-stat-number" th:text="'R$ ' + ${#numbers.formatDecimal(receitaPrevista, 1, 2)}">R$ 0,00</div>
                     <div class="barber-stat-label">Receita Prevista</div>
                 </div>
 

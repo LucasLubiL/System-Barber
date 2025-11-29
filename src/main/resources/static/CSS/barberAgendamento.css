@@ -787,16 +787,12 @@ body {
     background: rgba(255, 255, 255, 0.02);
     border-radius: 8px;
     margin-bottom: 10px;
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
 }
 
 .barber-agendamento-item:hover {
     background: rgba(124, 106, 106, 0.08);
-    transform: translateY(-2px);
-}
-
-.barber-agendamento-item:last-child {
-    border-bottom: none;
+    transform: translateY(-3px) !important;
 }
 
 /* Container principal com foto + info */
@@ -985,4 +981,31 @@ body {
     }
 }
 
-/* ...existing code... */
+/* --- Painel da direita: não cresce, faz scroll interno --- */
+.barber-stats-section {
+  box-sizing: border-box;            /* garantir padding incluído no cálculo */
+  width: 320px;                      /* largura fixa (ajuste se quiser) */
+  max-height: calc(100vh - 40px);    /* ocupa a viewport menos espaço superior (ajuste o 40px) */
+  overflow-y: auto;                  /* se o conteúdo extrapolar, aparecerá scroll interno */
+  padding: 16px;                     /* mantém espaçamento */
+  background-clip: padding-box;      /* evita sombras cortadas */
+  /* opcional: deixa o painel "grudado" ao rolar */
+  position: sticky;
+  top: 20px;                         /* ajuste conforme header da página */
+  align-self: start;                 /* se o pai for flex, evita que o painel estique verticalmente */
+  z-index: 30;                       /* garante que o painel fique acima de alguns elementos */
+}
+
+.barber-stats-section::-webkit-scrollbar { width: 8px; }
+.barber-stats-section::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 6px; }
+
+.barber-agenda-section {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+
+.barber-agenda-section + .barber-stats-section,
+.barber-stats-section + .barber-agenda-section {
+  display: block;
+}

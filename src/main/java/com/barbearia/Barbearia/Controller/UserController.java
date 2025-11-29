@@ -208,9 +208,11 @@ public class UserController {
             List<Agendamento> agendamentos = agendamentoService.listarAgendamentosPorBarbeiroEData(
                     barbeiro.getId(),
                     dataSelecionada);
+            double receitaPrevista = agendamentoService.calcularReceitaPrevista(agendamentos);
 
             model.addAttribute("agendamentos", agendamentos);
             model.addAttribute("dataSelecionada", dataSelecionada);
+            model.addAttribute("receitaPrevista", receitaPrevista);
 
             String primeiroNome = barbeiro.getNomeCompleto().split(" ")[0];
             model.addAttribute("userName", primeiroNome);

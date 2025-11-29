@@ -47,9 +47,11 @@ public class AgendamentoController {
             return "redirect:/agendamento?success=true";
 
         } catch (Exception e) {
-            System.err.println("ERRO ao criar agendamento: " + e.getMessage());
-            e.printStackTrace();
-            return "redirect:/agendamento?error=true";
+            String msg = e.getMessage();
+            if (msg != null && msg.contains("Horário indisponível")) {
+                return "INDISPONIVEL";
+            }
+            return "ERRO";
         }
     }
 

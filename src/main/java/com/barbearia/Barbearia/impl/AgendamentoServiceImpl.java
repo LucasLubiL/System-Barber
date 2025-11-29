@@ -41,6 +41,20 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     public Agendamento criarAgendamento(Long barbeiroId, String emailCliente, String servicoNome,
             String data, String horario, Double valor,
             Boolean doador, MultipartFile fotoCabelo) {
+
+        LocalDate dataAgendamento = LocalDate.parse(data);
+        LocalTime horaAgendamento = LocalTime.parse(horario);
+
+        List<Agendamento> agendamentosNoHorario = agendamentoRepository
+                .findByBarbeiroIdAndData(barbeiroId, dataAgendamento)
+                .stream()
+                .filter(a -> a.getHora().equals(horaAgendamento) && !a.getStatus().equalsIgnoreCase("Cancelado"))
+                .toList();
+
+        if (!agendamentosNoHorario.isEmpty()) {
+            throw new RuntimeException("Horário indisponível para esse barbeiro!");
+        }
+
         try {
             // Buscar barbeiro
             Barbeiro barbeiro = barbeiroService.getBarbeiroById(barbeiroId);
@@ -133,6 +147,13 @@ public class AgendamentoServiceImpl implements AgendamentoService {
     @Override
     public List<Agendamento> listarAgendamentosPorBarbeiroEData(Long barbeiroId, LocalDate data) {
         return agendamentoRepository.findByBarbeiroIdAndData(barbeiroId, data);
+    }
+
+    @Override
+    public double calcularReceitaPrevista(List<Agendamento> agendamentos) {
+        return agendamentos.stream()
+                .mapToDouble(a -> a.getValor() != null ? a.getValor() : 0.0)
+                .sum();
     }
 
 }

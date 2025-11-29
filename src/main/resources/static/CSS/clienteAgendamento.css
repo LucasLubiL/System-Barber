@@ -118,18 +118,23 @@ body {
     margin-right: 8px;
 }
 
-/* Agendamento items renomeados */
 .Lal_agendamentoItem {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
+    padding: 15px;
     border-bottom: 1px solid rgba(124, 106, 106, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
 }
 
-.Lal_agendamentoItem:last-child {
-    border-bottom: none;
+.Lal_agendamentoItem:hover {
+    background: rgba(124, 106, 106, 0.08);
+     transform: translateY(-3px) !important;
 }
+
 
 .Lal_agendamentoInfo h3 {
     margin: 0;

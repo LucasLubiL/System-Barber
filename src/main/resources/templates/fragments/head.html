@@ -1,6 +1,6 @@
 <head th:fragment="head(title)">
-  <meta charset="ISO-8859-1" />
-  <title th:text="${title}"></title>
+    <meta charset="ISO-8859-1" />
+    <title th:text="${title}"></title>
 </head>
 
 <header th:fragment="header()" id="header" xmlns:th="http://www.thymeleaf.org">
@@ -15,7 +15,7 @@
                 <li><a href="#servico"><i class="bi bi-scissors"></i> Serviços</a></li>
                 <li><a href="#sobre-doar"><i class="bi bi-heart-fill"></i> Doação</a></li>
                 <li><a href="#sobre-cabelo"><i class="bi bi-info-square-fill"></i> Sobre</a></li>
-                
+
                 <!-- Nome do usuário e logout dentro do menu mobile -->
                 <li th:if="${isAuthenticated}" class="mobile-only">
                     <span class="user-name">Olá, <span th:text="${userName}"></span></span>
@@ -31,13 +31,13 @@
             </ul>
         </div>
     </nav>
-    
+
     <!-- Se NÃO estiver autenticado, mostra botão de Login -->
     <a th:if="${!isAuthenticated}" th:href="@{/login}" class="btn-login-header">
         <i class="bi bi-person" style="font-size: 1.2rem;"></i>
         Login
     </a>
-    
+
     <!-- Se estiver autenticado, mostra nome e botão de Logout (desktop) -->
     <div th:if="${isAuthenticated}" class="user-info">
         <span class="user-name">Olá, <span th:text="${userName}"></span></span>
@@ -48,6 +48,17 @@
             </button>
         </form>
     </div>
-    
+
     <i class="bi bi-list" id="menu-toggle"></i>
+    <!-- ...existing code... -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menu-toggle');
+            const navbar = document.querySelector('.navbar');
+            menuToggle.addEventListener('click', function () {
+                navbar.classList.toggle('active');
+            });
+        });
+    </script>
+
 </header>

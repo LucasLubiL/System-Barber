@@ -27,5 +27,6 @@ public interface AgendamentoService {
     
     List<Agendamento> listarAgendamentosPorBarbeiroEData(Long barbeiroId, LocalDate data);
 
+    double calcularReceitaPrevista(List<Agendamento> agendamentos);
 
 }

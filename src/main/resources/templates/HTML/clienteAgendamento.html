@@ -156,7 +156,7 @@
                     <p class="mt-2" style="color: #7c6a6a;">Seu histórico de agendamentos aparecerá aqui.</p>
                 </div>
 
-                <div th:each="agendamento : ${agendamentos}"
+                <div th:each="agendamento : ${agendamentos} "
                     th:if="${agendamento.status == 'Cancelado' or agendamento.status == 'Concluido'}"
                     class="Lal_agendamentoItem">
 
@@ -304,6 +304,8 @@
             </div>
         </div>
     </div>
+
+
 
 
 
@@ -670,37 +672,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <th:block th:replace="~{/../fragments/footer :: footer}"></th:block>
 
@@ -1092,7 +1063,14 @@
                             //}, 1500);
 
                         } else {
-                            mostrarMensagem('Erro ao criar agendamento. Tente novamente.', 'danger');
+                            return response.text().then(msg => {
+                                // Se vier a mensagem de horário indisponível, mostra no modal
+                                if (msg.includes('Horário indisponível')) {
+                                    mostrarMensagem('Esse horário, nessa data e com esse barbeiro já está indisponível. Escolha outro horário.', 'danger');
+                                } else {
+                                    mostrarMensagem('Esse horário, nessa data e com esse barbeiro já está indisponível. Escolha outro horário.', 'danger');
+                                }
+                            });
                         }
                     })
                     .catch(error => {
@@ -1207,6 +1185,7 @@
                 }, { once: true });
             }
         });
+
     </script>
 
 </body>
