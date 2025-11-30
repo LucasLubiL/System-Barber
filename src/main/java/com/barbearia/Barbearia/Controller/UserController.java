@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Base64;
 import java.util.List;
 import java.io.IOException;
+import jakarta.servlet.http.HttpSession;
 
 import com.barbearia.Barbearia.Model.Agendamento;
 import com.barbearia.Barbearia.Model.Barbeiro;
@@ -31,6 +32,7 @@ import com.barbearia.Barbearia.Model.RegisterUser;
 import com.barbearia.Barbearia.Model.User;
 import com.barbearia.Barbearia.service.AgendamentoService;
 import com.barbearia.Barbearia.service.BarbeiroService;
+import com.barbearia.Barbearia.service.FeedbackService;
 import com.barbearia.Barbearia.service.InstituicaoService;
 import com.barbearia.Barbearia.service.ServicoService;
 import com.barbearia.Barbearia.service.UserService;
@@ -58,6 +60,9 @@ public class UserController {
     @Autowired
     private AgendamentoService agendamentoService;
 
+    @Autowired
+    private FeedbackService feedbackService;
+
     @GetMapping("/")
     public String root() {
         return "redirect:/home";
@@ -73,6 +78,8 @@ public class UserController {
         } else {
             model.addAttribute("isAuthenticated", false);
         }
+        model.addAttribute("feedbacks", feedbackService.listarFeedbacks());
+
         return "HTML/index";
     }
 
@@ -185,10 +192,18 @@ public class UserController {
     public String redirectAgendamento(@AuthenticationPrincipal UserDetails userDetails,
             @RequestParam(required = false) String success,
             @RequestParam(required = false) String data,
-            Model model) {
+            Model model,
+            jakarta.servlet.http.HttpSession session) {
 
         if (userDetails == null) {
             return "redirect:/login";
+        }
+
+        // Adiciona mensagem de erro ao model, se existir
+        Object erro = session.getAttribute("erroCriarBarbeiro");
+        if (erro != null) {
+            model.addAttribute("erroCriarBarbeiro", erro);
+            session.removeAttribute("erroCriarBarbeiro");
         }
 
         // VERIFICA SE É BARBEIRO OU CLIENTE

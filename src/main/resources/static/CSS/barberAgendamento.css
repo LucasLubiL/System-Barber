@@ -530,13 +530,11 @@ body {
     transition: all 0.22s ease;
 }
 
-/* Ícone e texto do botão */
 #ongsModal .barber-view-ong i {
     font-size: 1rem;
     color: var(--primary-color);
 }
 
-/* Hover/active botão */
 #ongsModal .barber-view-ong:hover {
     background: linear-gradient(45deg, rgba(124, 106, 106, 0.18), rgba(124, 106, 106, 0.12));
     color: white;
@@ -544,7 +542,6 @@ body {
     border-color: var(--primary-color);
 }
 
-/* Torna o botão mais proeminente em dispositivos pequenos */
 @media (max-width: 576px) {
     #ongsModal thead {
         display: none;
@@ -613,32 +610,24 @@ body {
     background: transparent;
 }
 
-/* === ONG modal: correção apenas de cores (NÃO altera tamanho/posição) === */
 
-/* container da lista — mantém padding e borda originais, só ajusta cor */
 #ongsModal .table-responsive {
     background: var(--card-bg);
-    /* usa a mesma variável do resto */
     border-color: rgba(124, 106, 106, 0.18);
     box-shadow: none;
-    /* remove sombras extras que alteravam percepção (apenas cor) */
 }
 
-/* tabela — só cor do texto */
 #ongsModal table {
     color: var(--text-color);
     background: transparent;
 }
 
-/* cabeçalho: usa cores do tema, sem alterar formato */
 #ongsModal thead th {
     color: var(--primary-color);
     background: rgba(124, 106, 106, 0.04);
-    /* leve tonalidade que acompanha o tema */
     border: none;
 }
 
-/* linhas: mantém estrutura original, apenas cor de fundo/texto/borda */
 #ongsModal tbody tr {
     background: rgba(255, 255, 255, 0.02);
     border-color: rgba(124, 106, 106, 0.06);
@@ -647,45 +636,37 @@ body {
 #ongsModal tbody td {
     color: var(--accent-color);
     background: transparent;
-    /* sem alterar tamanho */
 }
 
-/* nome em destaque permanece do mesmo tamanho, só cor */
 #ongsModal tbody td strong {
     color: var(--text-color);
 }
 
-/* hover nas linhas: apenas mudança de cor suave, sem transform/box-shadow */
 #ongsModal tbody tr:hover {
     background: rgba(124, 106, 106, 0.03);
 }
 
-/* coluna ações: mantém alinhamento, só cor do botão */
 #ongsModal tbody td.text-center .barber-view-ong {
     color: var(--accent-color);
     border-color: rgba(124, 106, 106, 0.18);
     background: transparent;
 }
 
-/* ícone do botão */
 #ongsModal .barber-view-ong i {
     color: var(--primary-color);
 }
 
-/* hover do botão: apenas cor, sem translate/transform */
 #ongsModal .barber-view-ong:hover {
     background: rgba(124, 106, 106, 0.06);
     color: var(--text-color);
     border-color: var(--primary-color);
 }
 
-/* empty state no modal: apenas cor */
 #ongsModal .text-center.text-muted.py-4 {
     color: var(--accent-color);
     background: transparent;
 }
 
-/* === Modal detalhes ONG: apenas cores dos rótulos e valores === */
 #ongDetailsModal .modal-body strong {
     color: var(--primary-color);
 }
@@ -696,21 +677,16 @@ body {
     border-color: rgba(124, 106, 106, 0.06);
 }
 
-/* footer — mesma cor sutil do tema */
 #ongsModal .barber-modal-footer,
 #ongDetailsModal .barber-modal-footer {
     border-top-color: rgba(124, 106, 106, 0.06);
     background: transparent;
 }
 
-/* === Corrige alinhamento das colunas do modal ONGs ===
-   Força comportamento semântico de tabela sem mudar tamanhos/paddings.
-*/
 #ongsModal table {
     display: table !important;
     width: 100% !important;
     table-layout: auto !important;
-    /* deixa a largura das colunas normal */
     border-collapse: collapse !important;
     border-spacing: 0 !important;
 }
@@ -718,7 +694,6 @@ body {
 #ongsModal thead,
 #ongsModal tbody {
     display: table-header-group, table-row-group;
-    /* assegura comportamento correto */
 }
 
 #ongsModal thead tr,
@@ -730,9 +705,7 @@ body {
 #ongsModal tbody td {
     display: table-cell !important;
     vertical-align: middle !important;
-    /* só para consistência */
     white-space: normal !important;
-    /* evita concatenação em uma célula */
     word-break: break-word !important;
 }
 
@@ -740,43 +713,34 @@ body {
     color: var(--primary-color) !important;
 }
 
-/* Valores dentro dos campos */
 #ongDetailsModal .modal-body .text-muted {
     color: var(--text-color) !important;
-    /* branco */
 }
 
 #ongsModal tbody td {
-    color: var(--text-color) !important; /* branco */
+    color: var(--text-color) !important;
 }
 
-/* Mantém o <strong> também branco */
 #ongsModal tbody td strong {
     color: var(--text-color) !important;
 }
 
 #ongsModal .barber-view-ong:hover {
-    background: rgba(124, 106, 106, 0.35) !important; /* marrom usado nos outros botões */
+    background: rgba(124, 106, 106, 0.35) !important;
     border-color: rgba(124, 106, 106, 0.45) !important;
-    color: #ffffff !important; /* texto branco */
+    color: #ffffff !important
 }
 
-/* Ícone branco dentro do botão no hover */
 #ongsModal .barber-view-ong:hover i {
     color: #ffffff !important;
-    background: none !important; /* remove gradiente desnecessário */
+    background: none !important;
 }
 
-/* responsividade */
 @media (max-width: 992px) {
     .barber-dashboard {
         grid-template-columns: 1fr;
     }
 }
-
-/* ...existing code... */
-
-/* === ESTILO DOS AGENDAMENTOS (IGUAL AO CLIENTE) === */
 
 .barber-agendamento-item {
     display: flex;
@@ -981,19 +945,17 @@ body {
     }
 }
 
-/* --- Painel da direita: não cresce, faz scroll interno --- */
 .barber-stats-section {
-  box-sizing: border-box;            /* garantir padding incluído no cálculo */
-  width: 320px;                      /* largura fixa (ajuste se quiser) */
-  max-height: calc(100vh - 40px);    /* ocupa a viewport menos espaço superior (ajuste o 40px) */
-  overflow-y: auto;                  /* se o conteúdo extrapolar, aparecerá scroll interno */
-  padding: 16px;                     /* mantém espaçamento */
-  background-clip: padding-box;      /* evita sombras cortadas */
-  /* opcional: deixa o painel "grudado" ao rolar */
+  box-sizing: border-box;           
+  width: 320px;                      
+  max-height: calc(100vh - 40px);    
+  overflow-y: auto;                  
+  padding: 16px;                     
+  background-clip: padding-box;      
   position: sticky;
-  top: 20px;                         /* ajuste conforme header da página */
-  align-self: start;                 /* se o pai for flex, evita que o painel estique verticalmente */
-  z-index: 30;                       /* garante que o painel fique acima de alguns elementos */
+  top: 20px;                        
+  align-self: start;                 
+  z-index: 30;                       
 }
 
 .barber-stats-section::-webkit-scrollbar { width: 8px; }

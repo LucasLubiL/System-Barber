@@ -32,7 +32,7 @@ public class SecurityConfig {
                                 // PÁGINAS PÚBLICAS (não precisa estar logado)
                                 .requestMatchers("/", "/home", "/instituicao", "/instituicao/save", "/login",
                                                 "/register", "/saveUser",
-                                                "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**")
+                                                "/CSS/**", "/JS/**", "/images/**", "/img/**", "/servicos/**", "/uploads/**")
                                 .permitAll()
 
                                 // ✅ ROTAS COMPARTILHADAS (CLIENTE E BARBEIRO) - DEVEM VIR ANTES

@@ -14,8 +14,9 @@
 </head>
 
 <th:block th:replace="~{/../fragments/head :: head('Casa')}"></th:block>
+
 <body>
-    
+
     <th:block th:replace="~{/../fragments/head :: header}"></th:block>
 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -289,53 +290,46 @@
                 <div class="gallery-row">
 
                     <div class="gallery-item">
-                        <img src="img/1.jpg"
-                            alt="Corte" class="gallery-img">
+                        <img src="img/1.jpg" alt="Corte" class="gallery-img">
                     </div>
 
                     <div class="gallery-item">
-                        <img src="img/2.jpg"
-                            alt="Corte" class="gallery-img">
-                       
+                        <img src="img/2.jpg" alt="Corte" class="gallery-img">
+
                     </div>
 
                     <div class="gallery-item">
-                        <img src="img/3.jpg"
-                            alt="Corte" class="gallery-img">
-                        
+                        <img src="img/3.jpg" alt="Corte" class="gallery-img">
+
                     </div>
 
                     <div class="gallery-item">
                         <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
                             alt="Corte" class="gallery-img">
-                        
+
                     </div>
                 </div>
 
                 <div class="gallery-row">
 
                     <div class="gallery-item">
-                        <img src="img/4.jpg"
-                            alt="Corte" class="gallery-img">
-                        
+                        <img src="img/4.jpg" alt="Corte" class="gallery-img">
+
                     </div>
 
                     <div class="gallery-item">
-                        <img src="img/5.jpg"
-                            alt="Corte" class="gallery-img">
-                        
+                        <img src="img/5.jpg" alt="Corte" class="gallery-img">
+
                     </div>
 
                     <div class="gallery-item">
-                        <img src="img/6.jpg"
-                            alt="Corte" class="gallery-img">
-                        
+                        <img src="img/6.jpg" alt="Corte" class="gallery-img">
+
                     </div>
 
                     <div class="gallery-item">
-                        <img src="img/7.jpg"
-                            alt="Corte" class="gallery-img">
-                        
+                        <img src="img/7.jpg" alt="Corte" class="gallery-img">
+
                     </div>
                 </div>
             </div>
@@ -353,100 +347,143 @@
                     comunidade satisfeita</p>
             </div>
 
-            <div class="testimonials-container">
-                <div class="testimonials-slider">
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="client-info">
-                                <img src="/img/selfie3.png" alt="Carlos Silva" class="client-avatar">
-                                <div class="client-details">
-                                    <h3>Carlos Silva</h3>
-                                    <p>Cliente há 2 anos</p>
-                                </div>
+            <!-- CARROSSEL -->
+            <div id="carouselDepoimentos" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <th:block th:each="slide : ${#numbers.sequence(0, feedbacks.size() / 3)}">
+                        <div class="carousel-item" th:classappend="${slide == 0} ? 'active'">
+                            <div class="testimonials-slider d-flex gap-3">
+                                <th:block th:each="f, idx : ${feedbacks}">
+                                    <th:block
+                                        th:if="${idx.index} >= ${slide} * 3 and ${idx.index} < (${slide} + 1) * 3">
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-header">
+                                                <div class="client-info">
+                                                    <img th:src="${f.cliente.foto != null ? f.cliente.foto : '/img/selfie1.png'}"
+                                                        alt="Foto" class="client-avatar">
+                                                    <div class="client-details">
+                                                        <h3 th:text="${f.cliente.nomeCompleto}">Nome</h3>
+                                                        <p>Cliente</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="rating">
+                                                <th:block th:each="i : ${#numbers.sequence(1,5)}">
+                                                    <i class="bi"
+                                                        th:classappend="${i <= f.avaliacao} ? 'bi-star-fill' : 'bi-star'"></i>
+                                                </th:block>
+                                            </div>
+                                            <div class="testimonial-content">
+                                                <p th:text="${f.comentario}"></p>
+                                            </div>
+                                            <div class="testimonial-date">
+                                                <i class="bi bi-calendar3"></i>
+                                                <span th:text="${#temporals.format(f.data, 'dd/MM/yyyy')}"></span>
+                                            </div>
+                                        </div>
+                                    </th:block>
+                                </th:block>
                             </div>
-
                         </div>
-                        <div class="rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>Melhor barbearia da região! O Jean é extremamente talentoso e atencioso. Sempre saio de
-                                lá renovado e satisfeito com o resultado.</p>
-                        </div>
-                        <div class="testimonial-date">
-                            <i class="bi bi-calendar3"></i> 15 de Outubro, 2024
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="client-info">
-                                <img src="/img/selfie2.png" alt="Marcos Oliveira" class="client-avatar">
-                                <div class="client-details">
-                                    <h3>Marcos Oliveira</h3>
-                                    <p>Cliente há 1 ano</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>Atendimento excepcional! Fui pela primeira vez e já me senti em casa. Ambiente limpo e
-                                organizado, e o corte ficou exatamente como eu queria.</p>
-                        </div>
-                        <div class="testimonial-date">
-                            <i class="bi bi-calendar3"></i> 02 de Setembro, 2024
-                        </div>
-                    </div>
-
-                    <div class="testimonial-card">
-                        <div class="testimonial-header">
-                            <div class="client-info">
-                                <img src="/img/selfie1.png" alt="João Santos" class="client-avatar">
-                                <div class="client-details">
-                                    <h3>João Santos</h3>
-                                    <p>Cliente há 6 meses</p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                        </div>
-                        <div class="testimonial-content">
-                            <p>Além de fazer um ótimo trabalho, o Jean ainda tem um projeto social incrível com doação
-                                de cabelo. É bom saber que estou contribuindo com uma causa nobre.</p>
-                        </div>
-                        <div class="testimonial-date">
-                            <i class="bi bi-calendar3"></i> 5 de julho, 2025
-                        </div>
-                    </div>
+                    </th:block>
                 </div>
 
+                <!-- CONTROLES -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselDepoimentos"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselDepoimentos"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
             </div>
 
             <div class="testimonials-cta">
                 <p>Deixe sua avaliação e compartilhe sua experiência conosco</p>
-                <a href="#avaliar" class="btn-primary-custom">
+                <a class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#modalFeedback"
+                    style="cursor:pointer;">
                     <i class="bi bi-pencil-fill"></i> Deixar Avaliação
                 </a>
             </div>
         </div>
     </section>
+
+
+    <!-- Modal Feedback -->
+    <div class="modal fade" id="modalFeedback" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <th:block th:if="${isAuthenticated}">
+                    <form id="formFeedback" th:action="@{/feedback}" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <i class="bi bi-pencil-fill"></i> Deixe seu comentário
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3 text-center">
+                                <label class="form-label d-block mb-2">Sua avaliação:</label>
+                                <div id="feedbackStars">
+                                    <!-- Estrelas dinâmicas -->
+                                    <i class="bi bi-star" data-value="1"></i>
+                                    <i class="bi bi-star" data-value="2"></i>
+                                    <i class="bi bi-star" data-value="3"></i>
+                                    <i class="bi bi-star" data-value="4"></i>
+                                    <i class="bi bi-star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comentarioFeedback" class="form-label">Comentário</label>
+                                <textarea id="comentarioFeedback" name="comentario" class="form-control" rows="4"
+                                    minlength="2" maxlength="200" required
+                                    placeholder="Escreva seu comentário..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn-enviar-feedback">Enviar Avaliação</button>
+                        </div>
+                    </form>
+                </th:block>
+                <th:block th:unless="${isAuthenticated}">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-exclamation-circle"></i> Faça login para comentar
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Você precisa estar logado para enviar uma avaliação.</p>
+                        <a href="/login" class="btn-primary">Ir para Login</a>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Sucesso - Feedback Enviado -->
+    <div class="modal fade" id="feedbackEnviadoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h1 class="modal-title fs-5">
+                        <i class="bi bi-check-circle-fill me-2"></i>Feedback enviado!
+                    </h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <i class="bi bi-check-circle text-success" style="font-size: 4rem;"></i>
+                    <h4 class="mt-3">Seu feedback foi registrado com sucesso!</h4>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="" class="divider"></div>
 
@@ -464,7 +501,142 @@
             navbar.classList.toggle('active');
             loginBtn.classList.toggle('active');
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const stars = Array.from(document.querySelectorAll("#feedbackStars i"));
+            let selectedRating = 0;
+
+            // tornar focáveis para teclado
+            stars.forEach(s => s.setAttribute('tabindex', '0'));
+
+            // atualiza visual: adiciona/remover classes e troca ícone
+            function repaintActive() {
+                stars.forEach(s => {
+                    const v = parseInt(s.getAttribute("data-value"), 10);
+                    if (selectedRating > 0 && v <= selectedRating) {
+                        s.classList.add('active');
+                        s.classList.remove('hovered');
+                        s.classList.remove('bi-star');
+                        s.classList.add('bi-star-fill');
+                    } else {
+                        s.classList.remove('active');
+                        s.classList.remove('hovered');
+                        s.classList.remove('bi-star-fill');
+                        s.classList.add('bi-star');
+                    }
+                });
+                ensureRatingInput(selectedRating);
+            }
+
+            // Hover: pinta todas até o valor com classe 'hovered' (visual temporário)
+            function paintHover(value) {
+                stars.forEach(s => {
+                    const v = parseInt(s.getAttribute("data-value"), 10);
+                    if (v <= value) {
+                        // marcamos hovered e icone preenchido
+                        s.classList.add('hovered');
+                        s.classList.remove('bi-star');
+                        s.classList.add('bi-star-fill');
+                    } else {
+                        s.classList.remove('hovered');
+                        // se não estiver selecionada, volta para outline
+                        if (!s.classList.contains('active')) {
+                            s.classList.remove('bi-star-fill');
+                            s.classList.add('bi-star');
+                        }
+                    }
+                });
+            }
+
+            // Remove hover (restaura o estado ativo real)
+            function clearHover() {
+                stars.forEach(s => {
+                    s.classList.remove('hovered');
+                    // restaura conforme ativo ou não
+                    if (s.classList.contains('active')) {
+                        s.classList.remove('bi-star');
+                        s.classList.add('bi-star-fill');
+                    } else {
+                        s.classList.remove('bi-star-fill');
+                        s.classList.add('bi-star');
+                    }
+                });
+            }
+
+            stars.forEach(star => {
+                const value = parseInt(star.getAttribute("data-value"), 10);
+
+                star.addEventListener('mouseover', () => paintHover(value));
+                star.addEventListener('focus', () => paintHover(value));
+
+                star.addEventListener('mouseout', clearHover);
+                star.addEventListener('blur', clearHover);
+
+                star.addEventListener('click', () => {
+                    // toggle: se clicar no mesmo valor, desmarca
+                    if (selectedRating === value) {
+                        selectedRating = 0;
+                    } else {
+                        selectedRating = value;
+                    }
+                    repaintActive();
+                });
+
+                star.addEventListener('keydown', (ev) => {
+                    if (ev.key === "Enter" || ev.key === " ") {
+                        ev.preventDefault();
+                        star.click();
+                    }
+                    if (ev.key === "ArrowLeft") {
+                        ev.preventDefault();
+                        selectedRating = Math.max(0, selectedRating - 1);
+                        repaintActive();
+                    }
+                    if (ev.key === "ArrowRight") {
+                        ev.preventDefault();
+                        selectedRating = Math.min(5, selectedRating + 1);
+                        repaintActive();
+                    }
+                });
+            });
+
+            function ensureRatingInput(value) {
+                let input = document.querySelector("#formFeedback input[name='rating']");
+                if (!input) {
+                    input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'rating';
+                    document.getElementById('formFeedback').appendChild(input);
+                }
+                input.value = value;
+            }
+
+            document.getElementById("formFeedback").addEventListener("submit", function (e) {
+                const input = document.querySelector("input[name='rating']");
+                const val = input ? Number(input.value) : 0;
+                if (!val || val <= 0) {
+                    e.preventDefault();
+                    // use seu modalMensagem ou alert como fallback
+                    alert("Por favor, selecione uma nota antes de enviar.");
+                    return false;
+                }
+                // submit normal
+            });
+
+
+            // inicial
+            repaintActive();
+
+
+            if (window.location.search.includes('feedbackSuccess=true')) {
+                var feedbackModal = new bootstrap.Modal(document.getElementById('feedbackEnviadoModal'));
+                feedbackModal.show();
+            }
+
+
+        });
     </script>
+
 </body>
 
 </html>

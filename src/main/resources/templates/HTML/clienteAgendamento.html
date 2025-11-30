@@ -305,34 +305,6 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Modal de Agendamento -->
     <div class="modal fade" id="agendarModal" tabindex="-1" aria-labelledby="agendarModalLabel" aria-hidden="true"
         data-bs-backdrop="static">
@@ -587,18 +559,17 @@
         </div>
     </div>
 
+    <!-- Modal de Mensagem -->
     <div class="modal fade" id="modalMensagem" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content barber-modal-content">
                 <div id="modalMensagemHeader" class="modal-header bg-success text-white">
-                    <h5 id="modalMensagemTitulo" class="modal-title">
-                        <i class="bi bi-check-circle-fill"></i> Sucesso!
-                    </h5>
+                    <h5 id="modalMensagemTitulo" class="modal-title"></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center py-4">
-                    <i class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
-                    <h4 class="mt-3" id="modalMensagemTexto">Agendamento realizado com sucesso!</h4>
+                    <i id="modalMensagemIcone" class="bi bi-check-circle text-success" style="font-size: 3rem;"></i>
+                    <h4 class="mt-3" id="modalMensagemTexto"></h4>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <button type="button" class="btn btn-success" id="btnOkAgendamentoSucesso"
@@ -713,10 +684,7 @@
             }
         });
 
-        // ✅ REMOVIDO - Gerenciamento de estado vazio (estava duplicando)
-        // A mensagem já está no HTML via Thymeleaf
-
-        // ========== MODAL DE AGENDAMENTO ==========
+        //  MODAL DE AGENDAMENTO
         document.addEventListener('DOMContentLoaded', function () {
             // Controle da seção de doador
             const doadorSim = document.getElementById('doadorSim');
@@ -945,6 +913,7 @@
                 const header = document.getElementById('modalMensagemHeader');
                 const titulo = document.getElementById('modalMensagemTitulo');
                 const texto = document.getElementById('modalMensagemTexto');
+                const icone = document.getElementById('modalMensagemIcone');
 
                 // Configurar mensagem
                 texto.textContent = mensagem;
@@ -952,27 +921,29 @@
                 // Resetar classes do header
                 header.className = 'modal-header';
 
-                // Aplicar cor e título conforme o tipo
+                // Aplicar cor, título e ícone conforme o tipo
                 if (tipo === 'success') {
                     header.classList.add('bg-success', 'text-white');
                     titulo.textContent = 'Sucesso!';
+                    icone.className = 'bi bi-check-circle text-success';
                 } else if (tipo === 'warning') {
                     header.classList.add('bg-warning', 'text-dark');
                     titulo.textContent = 'Atenção!';
+                    icone.className = 'bi bi-exclamation-triangle text-warning';
                 } else if (tipo === 'danger') {
                     header.classList.add('bg-danger', 'text-white');
                     titulo.textContent = 'Erro!';
+                    icone.className = 'bi bi-x-circle text-danger';
                 }
 
                 // Mostrar modal
                 const modal = new bootstrap.Modal(modalElement);
                 modal.show();
 
-                // ✅ Só recarrega ao clicar em OK, se for sucesso
+                // Só recarrega ao clicar em OK, se for sucesso
                 if (tipo === 'success') {
                     const btnOk = document.getElementById('btnOkAgendamentoSucesso');
                     if (btnOk) {
-                        // Remove qualquer evento anterior para evitar múltiplos reloads
                         btnOk.onclick = null;
                         btnOk.onclick = function () {
                             window.location.reload();
