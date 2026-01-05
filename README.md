@@ -111,7 +111,7 @@ O sistema possui um **diferencial social**, permitindo que **ONGs e instituiçõ
 - Maven
 
 bash
-- git clone https://github.com/seu-usuario/seu-repositorio.git
+- git clone https://github.com/LucasLubiL/System-Barber.git
 - cd seu-repositorio
 - mvn spring-boot:run
 
